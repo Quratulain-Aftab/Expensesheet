@@ -10,7 +10,7 @@
 #import "SheetCell.h"
 #import <CoreData/CoreData.h>
 #import "Constants.h"
-#import "WeekExpensesViewController.h"
+#import "ExpenseSheetDetailViewController.h"
 #import "CreateViewCell2.h"
 #import "CreateViewCell1.h"
 #import "CurrentWeekCell.h"
@@ -1195,7 +1195,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if([segue.identifier isEqualToString:@"weeksegue"])
     {
-        WeekExpensesViewController *weekExpenseVC=(WeekExpensesViewController *)segue.destinationViewController;
+        ExpenseSheetDetailViewController *weekExpenseVC=(ExpenseSheetDetailViewController *)segue.destinationViewController;
         weekExpenseVC.sheetId=sheetID;
         weekExpenseVC.titleText=sheetTitle;
     }

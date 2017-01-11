@@ -1,5 +1,5 @@
 //
-//  WeekExpensesViewController.h
+//  ExpenseSheetDetailViewController.h
 //  ExpenseSheet
 //
 //  Created by IOS Apps Developer on 11/23/16.
@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-@interface WeekExpensesViewController : UIViewController<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate>
+@interface ExpenseSheetDetailViewController : UIViewController<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *weeklyTable;
 @property (weak, nonatomic) IBOutlet UIView *addRowBackview;
 @property (strong, nonatomic) IBOutlet UIView *emptyTableView;

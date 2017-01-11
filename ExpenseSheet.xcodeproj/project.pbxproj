@@ -20,7 +20,7 @@
 		5A860B151E140E8A00B44D49 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A860AFE1E140E8A00B44D49 /* HomeViewController.m */; };
 		5A860B171E140E8A00B44D49 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A860B041E140E8A00B44D49 /* LoginViewController.m */; };
 		5A860B181E140E8A00B44D49 /* receiptViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A860B071E140E8A00B44D49 /* receiptViewController.m */; };
-		5A860B191E140E8A00B44D49 /* WeekExpensesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A860B0A1E140E8A00B44D49 /* WeekExpensesViewController.m */; };
+		5A860B191E140E8A00B44D49 /* ExpenseSheetDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A860B0A1E140E8A00B44D49 /* ExpenseSheetDetailViewController.m */; };
 		5AC03DF41E164133008AF52A /* CurrentWeekCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AC03DF31E164133008AF52A /* CurrentWeekCell.m */; };
 		5AC03DF81E1679D8008AF52A /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AC03DF71E1679D8008AF52A /* Utilities.m */; };
 		5ACEFFEC1E14156400C3FCD4 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ACEFFEB1E14156400C3FCD4 /* MBProgressHUD.m */; };
@@ -95,8 +95,8 @@
 		5A860B041E140E8A00B44D49 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		5A860B061E140E8A00B44D49 /* receiptViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = receiptViewController.h; sourceTree = "<group>"; };
 		5A860B071E140E8A00B44D49 /* receiptViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = receiptViewController.m; sourceTree = "<group>"; };
-		5A860B091E140E8A00B44D49 /* WeekExpensesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeekExpensesViewController.h; sourceTree = "<group>"; };
-		5A860B0A1E140E8A00B44D49 /* WeekExpensesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeekExpensesViewController.m; sourceTree = "<group>"; };
+		5A860B091E140E8A00B44D49 /* ExpenseSheetDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpenseSheetDetailViewController.h; sourceTree = "<group>"; };
+		5A860B0A1E140E8A00B44D49 /* ExpenseSheetDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpenseSheetDetailViewController.m; sourceTree = "<group>"; };
 		5AC03DF21E164133008AF52A /* CurrentWeekCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrentWeekCell.h; sourceTree = "<group>"; };
 		5AC03DF31E164133008AF52A /* CurrentWeekCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrentWeekCell.m; sourceTree = "<group>"; };
 		5AC03DF61E1679D8008AF52A /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
@@ -233,15 +233,15 @@
 			children = (
 				5AECD2A51E1B8B1A000CA3F8 /* About us */,
 				5AECD2A61E1B8B1A000CA3F8 /* Settings */,
-				5ACEFFF21E142BB700C3FCD4 /* ExpenseSheetDetail */,
+				5ACEFFF21E142BB700C3FCD4 /* ExpenseDetail */,
 				5A860AF11E140E8A00B44D49 /* AddMore */,
 				5A860AF41E140E8A00B44D49 /* CreatePasscode */,
 				5A860AF71E140E8A00B44D49 /* CreateSheet */,
 				5A860AF81E140E8A00B44D49 /* EnterPasscode */,
 				5A860AFC1E140E8A00B44D49 /* Home */,
 				5A860AFF1E140E8A00B44D49 /* Login */,
-				5A860B051E140E8A00B44D49 /* ReceiptViewController */,
-				5A860B081E140E8A00B44D49 /* WeekExpensesViewController */,
+				5A860B051E140E8A00B44D49 /* Receipt */,
+				5A860B081E140E8A00B44D49 /* ExpenseSheetDetail */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -300,23 +300,25 @@
 			path = Login;
 			sourceTree = "<group>";
 		};
-		5A860B051E140E8A00B44D49 /* ReceiptViewController */ = {
+		5A860B051E140E8A00B44D49 /* Receipt */ = {
 			isa = PBXGroup;
 			children = (
 				5A860B061E140E8A00B44D49 /* receiptViewController.h */,
 				5A860B071E140E8A00B44D49 /* receiptViewController.m */,
 			);
+			name = Receipt;
 			path = ReceiptViewController;
 			sourceTree = "<group>";
 		};
-		5A860B081E140E8A00B44D49 /* WeekExpensesViewController */ = {
+		5A860B081E140E8A00B44D49 /* ExpenseSheetDetail */ = {
 			isa = PBXGroup;
 			children = (
-				5A860B091E140E8A00B44D49 /* WeekExpensesViewController.h */,
-				5A860B0A1E140E8A00B44D49 /* WeekExpensesViewController.m */,
+				5A860B091E140E8A00B44D49 /* ExpenseSheetDetailViewController.h */,
+				5A860B0A1E140E8A00B44D49 /* ExpenseSheetDetailViewController.m */,
 				5AECD2AD1E1B8CA4000CA3F8 /* DetailPreviewViewController.h */,
 				5AECD2AE1E1B8CA4000CA3F8 /* DetailPreviewViewController.m */,
 			);
+			name = ExpenseSheetDetail;
 			path = WeekExpensesViewController;
 			sourceTree = "<group>";
 		};
@@ -329,12 +331,13 @@
 			path = Helper;
 			sourceTree = "<group>";
 		};
-		5ACEFFF21E142BB700C3FCD4 /* ExpenseSheetDetail */ = {
+		5ACEFFF21E142BB700C3FCD4 /* ExpenseDetail */ = {
 			isa = PBXGroup;
 			children = (
 				5ACEFFF31E142BB700C3FCD4 /* DetailViewController.h */,
 				5ACEFFF41E142BB700C3FCD4 /* DetailViewController.m */,
 			);
+			name = ExpenseDetail;
 			path = ExpenseSheetDetail;
 			sourceTree = "<group>";
 		};
@@ -638,7 +641,7 @@
 				A4D63DAF1E2503030053B741 /* SettingBackgroundViewController.m in Sources */,
 				A4D63DB21E2507AE0053B741 /* BackgroundCollectionViewCell.m in Sources */,
 				5AECD2AF1E1B8CA4000CA3F8 /* DetailPreviewViewController.m in Sources */,
-				5A860B191E140E8A00B44D49 /* WeekExpensesViewController.m in Sources */,
+				5A860B191E140E8A00B44D49 /* ExpenseSheetDetailViewController.m in Sources */,
 				A4D63DB71E25103F0053B741 /* UIButton+button.m in Sources */,
 				5ACEFFF51E142BB700C3FCD4 /* DetailViewController.m in Sources */,
 				5AECD2A41E1B6D04000CA3F8 /* SheetPreviewViewController.m in Sources */,

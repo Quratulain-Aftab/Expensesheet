@@ -347,7 +347,7 @@
                                             <constraint firstItem="1Nq-Xt-qNl" firstAttribute="centerY" secondItem="Nme-06-J5Q" secondAttribute="centerY" id="qrp-1W-zwX"/>
                                         </constraints>
                                     </view>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" rowHeight="100" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hiZ-iy-8le">
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="100" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hiZ-iy-8le">
                                         <rect key="frame" x="0.0" y="780" width="320" height="130"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -359,7 +359,7 @@
                                                 <rect key="frame" x="0.0" y="28" width="320" height="100"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="beU-WN-x34" id="DUX-VF-Uif">
-                                                    <rect key="frame" x="0.0" y="0.0" width="287" height="99"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="287" height="100"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Expense Sheet 1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j1z-0b-k1q">
@@ -957,10 +957,10 @@
             </objects>
             <point key="canvasLocation" x="-519" y="119"/>
         </scene>
-        <!--Week Expenses View Controller-->
+        <!--Expense Sheet Detail View Controller-->
         <scene sceneID="owl-AI-wHt">
             <objects>
-                <viewController storyboardIdentifier="weekVC" id="RMI-Ms-vlq" customClass="WeekExpensesViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="weekVC" id="RMI-Ms-vlq" customClass="ExpenseSheetDetailViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="6Zs-fW-Nac"/>
                         <viewControllerLayoutGuide type="bottom" id="Ptu-sA-ReO"/>
@@ -3361,12 +3361,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="esk-bx-s0d">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="884"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="esk-bx-s0d">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="900"/>
                                 <color key="backgroundColor" red="0.51372549020000002" green="0.63529411759999999" blue="0.66666666669999997" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" directionalLockEnabled="YES" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="dJL-za-CGv">
-                                <rect key="frame" x="0.0" y="896" width="304" height="128"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="dJL-za-CGv">
+                                <rect key="frame" x="0.0" y="912" width="320" height="100"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="gHA-vR-F97"/>
@@ -3379,14 +3379,14 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="BackgroundCell" id="eMr-Md-6SW" customClass="BackgroundCollectionViewCell">
-                                        <rect key="frame" x="0.0" y="4" width="120" height="120"/>
+                                        <rect key="frame" x="0.0" y="-10" width="120" height="120"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="120" height="120"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qbp-hk-4Wb">
-                                                    <rect key="frame" x="5" y="5" width="100" height="100"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Qbp-hk-4Wb">
+                                                    <rect key="frame" x="5" y="5" width="110" height="110"/>
                                                 </imageView>
                                             </subviews>
                                         </view>
@@ -3449,6 +3449,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="nYf-x5-GhG"/>
-        <segue reference="u8W-yu-eDc"/>
+        <segue reference="khX-1a-nmm"/>
     </inferredMetricsTieBreakers>
 </document>

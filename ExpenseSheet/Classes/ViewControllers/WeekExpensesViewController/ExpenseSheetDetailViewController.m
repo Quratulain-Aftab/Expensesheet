@@ -1,12 +1,12 @@
 //
-//  WeekExpensesViewController.m
+//  ExpenseSheetDetailViewController.m
 //  ExpenseSheet
 //
 //  Created by IOS Apps Developer on 11/23/16.
 //  Copyright © 2016 IOS Apps Developer. All rights reserved.
 //
 
-#import "WeekExpensesViewController.h"
+#import "ExpenseSheetDetailViewController.h"
 #import "DayCell1.h"
 #import "DetailViewController.h"
 #import "MBProgressHUD.h"
@@ -16,11 +16,11 @@
 #import "Utilities.h"
 #import "DetailPreviewViewController.h"
 #import "UIButton+button.h"
-@interface WeekExpensesViewController ()
+@interface ExpenseSheetDetailViewController ()
 @property (strong) NSMutableArray *dataSource;
 @end
 
-@implementation WeekExpensesViewController
+@implementation ExpenseSheetDetailViewController
 {
     BOOL isEditButtonClicked;
     NSMutableArray *listDataSource;
@@ -37,8 +37,6 @@
     self.searchbar.delegate=self;
    
     self.titleView.backgroundColor=[[Utilities shareManager]backgroundColor];
-    
-
     self.titleView.layer.shadowOffset = CGSizeMake(0, 5);
     self.titleView.layer.shadowRadius = 2;
     self.titleView.layer.shadowOpacity = 0.3;
@@ -86,17 +84,13 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 #pragma mark -
-#pragma mark === Status Bar ===
+#pragma mark === ConfiguringView ===
 #pragma mark -
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
     return UIStatusBarStyleLightContent;
 }
-#pragma mark -
-#pragma mark === ConfiguringView ===
-#pragma mark -
 -(void)adjustViewAccordingToState
 {
     
@@ -141,6 +135,19 @@
 
 #pragma mark -
 #pragma mark === Buttons Action ===
+- (IBAction)backButtonAction:(id)sender {
+    
+    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isBackFromWeekView"];
+    [self.navigationController popViewControllerAnimated:YES];
+}
+- (IBAction)addButtonAction:(id)sender {
+    
+    
+    self.ItemId=[self.dataSource count];
+    self.mode=1;
+    [self performSegueWithIdentifier:@"detailsegue" sender:nil];
+}
+
 - (IBAction)searchButtonAction:(id)sender {
     
     [UIView beginAnimations:@"animateTableView" context:nil];
@@ -190,7 +197,6 @@
         [fetchRequest setPredicate:predicate];
         NSArray *results = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
         
-        
         if(results.count>0)
         {
             NSManagedObject* detailGrabbed = [results objectAtIndex:0];
@@ -230,18 +236,6 @@
 }
 
 
-- (IBAction)backButtonAction:(id)sender {
-    
-    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isBackFromWeekView"];
-    [self.navigationController popViewControllerAnimated:YES];
-}
-- (IBAction)addButtonAction:(id)sender {
-    
-
-    self.ItemId=[self.dataSource count];
-    self.mode=1;
-    [self performSegueWithIdentifier:@"detailsegue" sender:nil];
-}
 - (IBAction)customersListCancelButtonAction:(id)sender {
     
     [self.customersListView removeFromSuperview];

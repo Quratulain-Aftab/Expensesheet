@@ -98,7 +98,7 @@
 }
 -(void)makeUIAdjustments
 {
-    self.mainview.backgroundColor=[[Utilities shareManager]backgroundColor];
+    self.mainView.backgroundColor=[[Utilities shareManager]backgroundColor];
     self.myExpenseSheetsView.backgroundColor=[[Utilities shareManager]backgroundColor];
     self.closeListButton.hitTestEdgeInsets=UIEdgeInsetsMake(-5, -5, -5, -10);
     self.editButton.hitTestEdgeInsets=UIEdgeInsetsMake(-5, -5, -5, -10);
@@ -123,26 +123,26 @@
     self.sheetsListTable.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.sheetsListTable.bounds.size.width, 0.01f)];
     
     
-    self.CurrentWeekTable.delegate=self;
-    self.CurrentWeekTable.dataSource=self;
-    [self.CurrentWeekTable setEditing:NO animated:YES];
+    self.currentWeekTable.delegate=self;
+    self.currentWeekTable.dataSource=self;
+    [self.currentWeekTable setEditing:NO animated:YES];
     
     
     self.createButton.enabled=false;
     
-    self.addbuttonBackview.layer.borderWidth=1.0;
-    self.addbuttonBackview.layer.cornerRadius=30;
-    self.addbuttonBackview.layer.borderColor=[UIColor whiteColor].CGColor;
+    self.addButtonBackView.layer.borderWidth=1.0;
+    self.addButtonBackView.layer.cornerRadius=30;
+    self.addButtonBackView.layer.borderColor=[UIColor whiteColor].CGColor;
     
-    self.menuButtonBackview.layer.borderWidth=1.0;
-    self.menuButtonBackview.layer.cornerRadius=30;
-    self.menuButtonBackview.layer.borderColor=[UIColor whiteColor].CGColor;
+    self.menuButtonBackView.layer.borderWidth=1.0;
+    self.menuButtonBackView.layer.cornerRadius=30;
+    self.menuButtonBackView.layer.borderColor=[UIColor whiteColor].CGColor;
     
-    self.cerateviewTable.delegate=self;
-    self.cerateviewTable.dataSource=self;
-    self.cerateviewTable.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.cerateviewTable.bounds.size.width, 0.01f)];
+    self.createViewTable.delegate=self;
+    self.createViewTable.dataSource=self;
+    self.createViewTable.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.createViewTable.bounds.size.width, 0.01f)];
     
-    [self.cerateButtonEmptyview.layer setCornerRadius:5.0];
+    [self.emptyViewCreateButton.layer setCornerRadius:5.0];
     
     
     self.titleView.backgroundColor=[[Utilities shareManager]backgroundColor];
@@ -150,10 +150,10 @@
     self.titleView.layer.shadowRadius = 2;
     self.titleView.layer.shadowOpacity = 0.3;
     
-    self.pickerviewTitle.backgroundColor=[[Utilities shareManager]backgroundColor];
-    self.pickerviewTitle.layer.shadowOffset = CGSizeMake(0, 5);
-    self.pickerviewTitle.layer.shadowRadius = 2;
-    self.pickerviewTitle.layer.shadowOpacity = 0.3;
+    self.pickerViewTitle.backgroundColor=[[Utilities shareManager]backgroundColor];
+    self.pickerViewTitle.layer.shadowOffset = CGSizeMake(0, 5);
+    self.pickerViewTitle.layer.shadowRadius = 2;
+    self.pickerViewTitle.layer.shadowOpacity = 0.3;
     
     self.createViewTitle.backgroundColor=[[Utilities shareManager]backgroundColor];
     self.createViewTitle.layer.shadowOffset = CGSizeMake(0, 5);
@@ -209,7 +209,7 @@
     }
     
     [self.sheetsListTable reloadData];
-    [self.CurrentWeekTable reloadData];
+    [self.currentWeekTable reloadData];
     if(self.dataSource.count>0)
     {
         self.sheetsListTable.hidden=NO;
@@ -217,9 +217,9 @@
     }
     else{
         self.sheetsListTable.hidden=YES;
-        self.EmptyTableView.frame=self.view.frame;
-        [self.view addSubview:self.EmptyTableView];
-        [self.view bringSubviewToFront:self.EmptyTableView];
+        self.emptyTableView.frame=self.view.frame;
+        [self.view addSubview:self.emptyTableView];
+        [self.view bringSubviewToFront:self.emptyTableView];
         
     }
     
@@ -234,7 +234,7 @@
     [UIView beginAnimations:@"animateTableView" context:nil];
     [UIView setAnimationDuration:0.5];
     self.myExpenseSheetsView.frame=self.view.frame;
-    self.mainview.hidden=YES;
+    self.mainView.hidden=YES;
     [UIView commitAnimations];
     [self.sheetsListTable reloadData];
 }
@@ -244,18 +244,18 @@
     self.createDatePicker.date=[NSDate date];
     
     self.createButton.enabled=NO;
-    [self.createview setFrame:CGRectMake( 0.0f, self.view.frame.size.height, self.view.frame.size.width,self.view.frame.size.height)];
-    [self.view addSubview:self.createview];
-    [self.view bringSubviewToFront:self.createview];// this is OFF screen!
+    [self.createView setFrame:CGRectMake( 0.0f, self.view.frame.size.height, self.view.frame.size.width,self.view.frame.size.height)];
+    [self.view addSubview:self.createView];
+    [self.view bringSubviewToFront:self.createView];// this is OFF screen!
     [UIView beginAnimations:@"animateTableView" context:nil];
     [UIView setAnimationDuration:0.5];
-    self.createview.frame=self.view.frame;
+    self.createView.frame=self.view.frame;
     [UIView commitAnimations];
     
     
-    CreateViewCell1 *cell1=[self.cerateviewTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    CreateViewCell1 *cell1=[self.createViewTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     cell1.dateLabelCreateView.text=[self getWeekStartDayStringFromDate:[NSDate date] andFormate:@"E dd-MM-yy"];
-    CreateViewCell2 *cell2=[self.cerateviewTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+    CreateViewCell2 *cell2=[self.createViewTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
     cell2.descriptionTextfiled.text=@"";
     [self performSelector:@selector(appearKeyboard:) withObject:cell2 afterDelay:0.5];
 }
@@ -384,7 +384,7 @@
 - (IBAction)expenseSheetsCancelButtonAction:(id)sender {
     [UIView animateWithDuration:0.5
                      animations:^{
-                          self.mainview.hidden=NO;
+                          self.mainView.hidden=NO;
                          [self.myExpenseSheetsView setFrame:CGRectMake( 0,self.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height)];
                      } completion:^(BOOL finished)
      {
@@ -404,7 +404,7 @@
         if(self.dataSource.count>0)
         {
             self.sheetsListTable.hidden=NO;
-            self.noexpensesheetSegmentLabel.hidden=YES;
+            self.noExpenseSheetLabel.hidden=YES;
         }
     }
     else if (self.segmentView.selectedSegmentIndex==1)
@@ -412,26 +412,26 @@
         if(montharray.count>0)
         {
             self.sheetsListTable.hidden=NO;
-             self.noexpensesheetSegmentLabel.hidden=YES;
+             self.noExpenseSheetLabel.hidden=YES;
         }
         else
         {
              self.sheetsListTable.hidden=YES;
-             self.noexpensesheetSegmentLabel.hidden=NO;
-            self.noexpensesheetSegmentLabel.text=@"No expense sheet this month";
+             self.noExpenseSheetLabel.hidden=NO;
+            self.noExpenseSheetLabel.text=@"No expense sheet this month";
         }
     }
     else{
         if(submittedArray.count>0)
         {
              self.sheetsListTable.hidden=NO;
-             self.noexpensesheetSegmentLabel.hidden=YES;
-             self.noexpensesheetSegmentLabel.text=@"No expense sheet submitted yet";
+             self.noExpenseSheetLabel.hidden=YES;
+             self.noExpenseSheetLabel.text=@"No expense sheet submitted yet";
         }
         else
         {
              self.sheetsListTable.hidden=YES;
-             self.noexpensesheetSegmentLabel.hidden=NO;
+             self.noExpenseSheetLabel.hidden=NO;
         }
         
     }
@@ -439,15 +439,15 @@
 #pragma mark - CreateExpenseSheetView Buttons
 - (IBAction)cancelButtonAction:(id)sender
 {
-    CreateViewCell2 *cell2=[self.cerateviewTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+    CreateViewCell2 *cell2=[self.createViewTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
     cell2.descriptionTextfiled.text=@"";
     [cell2.descriptionTextfiled endEditing:YES];
     [UIView animateWithDuration:0.5
                      animations:^{
-                        [self.createview setFrame:CGRectMake( 0,self.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height)];
+                        [self.createView setFrame:CGRectMake( 0,self.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height)];
                      } completion:^(BOOL finished)
     {
-                         [self.createview removeFromSuperview];
+                         [self.createView removeFromSuperview];
         
     }];
 
@@ -455,7 +455,7 @@
 - (IBAction)createButtonAction:(id)sender
 {
    
-    CreateViewCell2 *cell=[self.cerateviewTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+    CreateViewCell2 *cell=[self.createViewTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
     [cell.descriptionTextfiled resignFirstResponder];
     
     
@@ -471,7 +471,7 @@
                 
                 sheetID=[[sheet valueForKey:@"id"] integerValue];
                 sheetTitle=[sheet valueForKey:@"sheetDescription"];
-                [self.createview removeFromSuperview];
+                [self.createView removeFromSuperview];
                 [self performSegueWithIdentifier:@"weeksegue" sender:nil];
 
             }];
@@ -492,10 +492,10 @@
         }
         }
     
-    CreateViewCell2 *cell2=[self.cerateviewTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+    CreateViewCell2 *cell2=[self.createViewTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
     
 
-        [self.EmptyTableView removeFromSuperview];
+        [self.emptyTableView removeFromSuperview];
         
         NSManagedObjectContext *context = [self managedObjectContext];
         
@@ -528,8 +528,8 @@
             NSLog(@"Can't Save! %@ %@", error, [error localizedDescription]);
         }
         
-        [self.cerateviewTable reloadData];
-        [self.createview removeFromSuperview];
+        [self.createViewTable reloadData];
+        [self.createView removeFromSuperview];
         
         
         NSUserDefaults *mySharedDefaults = [[NSUserDefaults alloc] initWithSuiteName:AppGroupName];
@@ -559,19 +559,9 @@
      {
          [self.pickerbackview removeFromSuperview];
          
-         CreateViewCell1 *cell=(CreateViewCell1 *)[self.cerateviewTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+         CreateViewCell1 *cell=(CreateViewCell1 *)[self.createViewTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
          cell.dateLabelCreateView.text=self.pickerviewLabel.text;
-         
-        // NSDateFormatter *df=[[NSDateFormatter alloc]init];
-        // [df setDateFormat:@"dd-MM-yyyy"];
-      //   cell.dateLabelCreateView.text=self.
-         
-        // [self.cerateviewTable reloadData];
-         
-//         NSArray *paths=[NSArray arrayWithObject:[NSIndexPath indexPathForRow:0 inSection:0]];
-//         [self.cerateviewTable reloadRowsAtIndexPaths:paths withRowAnimation:UITableViewRowAnimationFade];
-       
-         NSLog(@"cell is %@",cell);
+           NSLog(@"cell is %@",cell);
          
      }];
     
@@ -649,7 +639,7 @@
     sheetTitle=[sheet valueForKey:@"sheetDescription"];
     [self performSegueWithIdentifier:@"weeksegue" sender:nil];
     }
-    else if (tableView==self.CurrentWeekTable)
+    else if (tableView==self.currentWeekTable)
     {
         if(currentWeekDataSource.count>0)
         {
@@ -710,7 +700,7 @@
        return cell;
     }
     else
-        if(tableView==self.CurrentWeekTable)
+        if(tableView==self.currentWeekTable)
             
         {
             CurrentWeekCell *cell;
@@ -804,7 +794,7 @@
         }
 
     }
-    else if (tableView==self.CurrentWeekTable)
+    else if (tableView==self.currentWeekTable)
     {
         if(self.dataSource.count>0)
         return 1;
@@ -822,7 +812,7 @@
     {
         return 60.0;
     }
-    else if(tableView==self.CurrentWeekTable)
+    else if(tableView==self.currentWeekTable)
     {
         return 70.0;
     }
@@ -1102,7 +1092,7 @@
 #pragma mark -
 -(void)presentDatePickerView
 {
-    CreateViewCell2 *cell2=[self.cerateviewTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+    CreateViewCell2 *cell2=[self.createViewTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
     [cell2.descriptionTextfiled resignFirstResponder];
     NSDate *currentDate = [NSDate date];
     NSDateComponents *comps = [[NSDateComponents alloc] init];

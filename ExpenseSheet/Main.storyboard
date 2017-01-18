@@ -538,31 +538,31 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="568"/>
                     <connections>
-                        <outlet property="CurrentWeekTable" destination="hiZ-iy-8le" id="NBn-Yl-ubH"/>
-                        <outlet property="EmptyTableView" destination="4hN-3n-BRq" id="9ay-a6-btU"/>
                         <outlet property="addButton" destination="s0V-cg-8Or" id="MvW-ZC-9Cj"/>
+                        <outlet property="addButtonBackView" destination="vWX-Tq-8nM" id="Q4u-cO-CIW"/>
                         <outlet property="addNewSheetButtonTop" destination="cVd-u0-tba" id="9u6-Lz-Rno"/>
-                        <outlet property="addbuttonBackview" destination="vWX-Tq-8nM" id="eIK-DX-nEi"/>
                         <outlet property="calendarButton" destination="w5J-8h-Q9S" id="BSl-75-weW"/>
-                        <outlet property="cerateButtonEmptyview" destination="BnT-Mk-bVr" id="Uqx-1c-nfN"/>
-                        <outlet property="cerateviewLabel" destination="HQq-fo-reB" id="kgU-2B-WkO"/>
-                        <outlet property="cerateviewTable" destination="keJ-sj-Ivz" id="thx-sb-l8I"/>
                         <outlet property="closeListButton" destination="3K4-oT-VWU" id="qPN-oP-T3T"/>
                         <outlet property="createButton" destination="ONq-84-oR3" id="7Bz-Rb-23v"/>
                         <outlet property="createDatePicker" destination="UPX-xh-O89" id="U8T-yf-L7u"/>
+                        <outlet property="createView" destination="42f-Ql-34P" id="xeQ-RP-2HN"/>
                         <outlet property="createViewCancelButton" destination="HUf-lI-i4b" id="zXL-Hs-hyl"/>
+                        <outlet property="createViewTable" destination="keJ-sj-Ivz" id="kHB-YN-5L3"/>
                         <outlet property="createViewTitle" destination="VK0-1Z-RdN" id="WXg-uG-qFh"/>
-                        <outlet property="createview" destination="42f-Ql-34P" id="Vpc-N2-3L9"/>
+                        <outlet property="createViewTitleLabel" destination="HQq-fo-reB" id="6mb-k5-ors"/>
+                        <outlet property="currentWeekTable" destination="hiZ-iy-8le" id="rvC-K7-MFF"/>
                         <outlet property="editButton" destination="FHm-8i-tR6" id="SXl-82-K1s"/>
                         <outlet property="editSheetsTitleLabel" destination="bLK-SK-chv" id="FUT-gM-uQF"/>
-                        <outlet property="mainview" destination="zK9-N7-NVb" id="I3p-0M-Hrx"/>
-                        <outlet property="menuButtonBackview" destination="tN0-mr-58Y" id="iAN-Wh-AOP"/>
+                        <outlet property="emptyTableView" destination="4hN-3n-BRq" id="bSJ-2X-is3"/>
+                        <outlet property="emptyViewCreateButton" destination="BnT-Mk-bVr" id="0lS-sJ-6Sb"/>
+                        <outlet property="mainView" destination="zK9-N7-NVb" id="nHH-WC-jP0"/>
+                        <outlet property="menuButtonBackView" destination="tN0-mr-58Y" id="tcx-aK-WXe"/>
                         <outlet property="myExpenseSheetsButtonTop" destination="sdI-pR-XYo" id="Gx5-2y-6Tn"/>
                         <outlet property="myExpenseSheetsView" destination="hI9-v1-V7O" id="AXc-2w-ye1"/>
-                        <outlet property="noexpensesheetSegmentLabel" destination="cz2-Og-7Ir" id="NID-Js-5pb"/>
+                        <outlet property="noExpenseSheetLabel" destination="cz2-Og-7Ir" id="nRG-JA-mdm"/>
+                        <outlet property="pickerViewTitle" destination="bRD-99-Rul" id="b98-3H-ZQ5"/>
                         <outlet property="pickerbackview" destination="fv7-FD-3Sf" id="nZH-c6-hPb"/>
                         <outlet property="pickerviewLabel" destination="xjY-gg-3fC" id="a4P-Lw-6Ee"/>
-                        <outlet property="pickerviewTitle" destination="bRD-99-Rul" id="2jR-ZJ-QHp"/>
                         <outlet property="searchDisplayController" destination="mAt-JD-xCL" id="ZjG-xx-r83"/>
                         <outlet property="segmentView" destination="0tU-Ch-XVz" id="5gO-A0-ein"/>
                         <outlet property="sheetsListEditButtonWidth" destination="QDE-UW-o8y" id="zeX-jV-e4w"/>
@@ -1348,7 +1348,6 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="568"/>
                     <connections>
-                        <outlet property="TopBarHeight" destination="Pdb-kk-Zlr" id="aj0-RC-tYq"/>
                         <outlet property="addRowBackview" destination="DSk-el-WU3" id="hIz-zX-6QF"/>
                         <outlet property="addbutton" destination="bBR-Zb-txh" id="OdG-Pn-IgZ"/>
                         <outlet property="backButton" destination="BDc-pI-9Cw" id="9Zf-7Z-86O"/>
@@ -1362,6 +1361,7 @@
                         <outlet property="emptyTableView" destination="shf-3b-Vgo" id="3bW-Fa-1G9"/>
                         <outlet property="infoCollectionView" destination="xOf-BQ-ZgU" id="KT9-aa-MaR"/>
                         <outlet property="infoDescriptionView" destination="CBk-i7-w4I" id="Iid-72-4di"/>
+                        <outlet property="infoListCloseButton" destination="Xwf-3W-gV6" id="nUN-j2-nAT"/>
                         <outlet property="listTable" destination="Jcn-qj-9XX" id="lZE-v8-M5G"/>
                         <outlet property="listTitle" destination="Ykc-5R-Pju" id="Y1u-tp-M0o"/>
                         <outlet property="receiptCollectionView" destination="2LQ-D7-1me" id="5nf-Lk-YFJ"/>
@@ -1376,6 +1376,7 @@
                         <outlet property="titleLabel" destination="Ll7-J2-7qr" id="Mfm-3s-4hH"/>
                         <outlet property="titleView" destination="Qt4-bp-uag" id="KkL-ew-Pfd"/>
                         <outlet property="titleViewHeight" destination="ErF-8F-5gF" id="0jG-SJ-kJy"/>
+                        <outlet property="topBarHeight" destination="Pdb-kk-Zlr" id="mCo-ay-Kel"/>
                         <outlet property="weeklyTable" destination="OwE-uo-qa3" id="tST-QU-nYj"/>
                         <segue destination="cHD-KV-u05" kind="presentation" identifier="detailsegue" id="u8W-yu-eDc"/>
                     </connections>
@@ -1408,7 +1409,7 @@
                                     <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zIC-8q-9i8" id="e0K-NQ-AqE">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="receipt.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="F2r-RK-Vic">
@@ -1587,7 +1588,7 @@
                                     <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="iOG-iX-LqU" id="35M-SS-2sb">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="receipt.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="2RQ-aH-9LD">
@@ -1851,7 +1852,7 @@
                             <rect key="frame" x="0.0" y="178" width="320" height="390"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap on customer name to see list of expenses that belong to that customer" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T2J-a0-H9s">
-                                    <rect key="frame" x="20" y="180" width="280" height="32"/>
+                                    <rect key="frame" x="20" y="179" width="280" height="32"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                     <nil key="highlightedColor"/>
@@ -4382,7 +4383,7 @@
                                 <rect key="frame" x="0.0" y="369" width="320" height="199"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap on date to see expense sheet of that week" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="puM-qO-JKm">
-                                        <rect key="frame" x="25" y="84" width="270" height="32"/>
+                                        <rect key="frame" x="25" y="84.5" width="270" height="31.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -4623,6 +4624,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="sTa-zJ-aaj"/>
-        <segue reference="khX-1a-nmm"/>
+        <segue reference="u8W-yu-eDc"/>
     </inferredMetricsTieBreakers>
 </document>

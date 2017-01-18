@@ -37,14 +37,6 @@
     
      [self makeUIAdjustments];
     
-//    if(self.shouldPresentDetailVC)
-//    {
-//       // self.view.hidden=YES;
-//        [self performSegueWithIdentifier:@"detailsegue" sender:nil];
-//        self.shouldPresentDetailVC=false;
-//      
-//    }
-
 }
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -57,14 +49,6 @@
           [self.weeklyTable reloadData];
           [[NSUserDefaults standardUserDefaults]setBool:NO forKey:isBackFromDetailView];
     }
-    
-//    if(self.shouldPresentDetailVC)
-//    {
-//        self.view.hidden=YES;
-//        [self performSegueWithIdentifier:@"detailsegue" sender:nil];
-//        self.shouldPresentDetailVC=false;
-//        self.view.hidden=NO;
-//    }
 }
 -(void)viewDidDisappear:(BOOL)animated
 {
@@ -99,20 +83,9 @@
     self.searchbar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.weeklyTable.frame.size.width, 44)];
      self.searchbar.delegate=self;
     self.searchbar.searchBarStyle=UISearchBarStyleMinimal;
-//    UIButton *searchBarCancelButton=[UIButton buttonWithType:UIButtonTypeCustom];
-//    searchBarCancelButton.frame=CGRectMake(5, 7, 50, 30);
-//    [searchBarCancelButton setTitle:@"Cancel" forState:UIControlStateNormal];
-//    [searchBarCancelButton setTitleColor:[[Utilities shareManager]backgroundColor] forState:UIControlStateNormal];
-//    [searchBarCancelButton addTarget:self action:@selector(searchbarCancelButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-//    [searchBarCancelButton.titleLabel setFont:[UIFont systemFontOfSize:12]];
-    
-//    UIView *headerView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, self.weeklyTable.frame.size.width, 44)];
-//    [headerView addSubview:searchBarCancelButton];
-//    [headerView addSubview:self.searchbar];
-    
      self.weeklyTable.tableHeaderView=self.searchbar;
 
-    self.backview.layer.cornerRadius=25.0;
+   // self.backview.layer.cornerRadius=25.0;
     
     if(![self.titleText isEqualToString:@""])
     {
@@ -144,7 +117,7 @@
     self.dateListTable.delegate=self;
     self.dateListTable.dataSource=self;
     
-    self.InfoListCloseButton.hitTestEdgeInsets=UIEdgeInsetsMake(-5, -5, -5, -15);
+    self.infoListCloseButton.hitTestEdgeInsets=UIEdgeInsetsMake(-5, -5, -5, -15);
     self.datesListCloseButton.hitTestEdgeInsets=UIEdgeInsetsMake(-5, -5, -5, -15);
     self.receiptsViewCloseButton.hitTestEdgeInsets=UIEdgeInsetsMake(-5, -5, -5, -15);
     
@@ -197,7 +170,7 @@
         
         [self.view addSubview:self.emptyTableView];
         [self.view bringSubviewToFront:self.emptyTableView];
-        [self.view bringSubviewToFront:self.backview];
+     //   [self.view bringSubviewToFront:self.backview];
         
     }
     
@@ -225,7 +198,7 @@
    
     self.titleViewHeight.constant=22;
     self.addRowBackview.hidden=YES;
-     self.TopBarHeight.constant=0;
+     self.topBarHeight.constant=0;
     //self.searchbarHeight.constant=44;
     [UIView commitAnimations];
     
@@ -238,7 +211,7 @@
     [UIView setAnimationDuration:0.2];
     self.titleViewHeight.constant=64;
     self.addRowBackview.hidden=NO;
-    self.TopBarHeight.constant=50;
+    self.topBarHeight.constant=50;
     [UIView commitAnimations];
     
     self.searchbar.text=@"";
@@ -563,7 +536,7 @@
     [self.searchbar setShowsCancelButton:NO animated:YES];
     self.titleViewHeight.constant=64;
     self.addRowBackview.hidden=NO;
-    self.TopBarHeight.constant=50;
+    self.topBarHeight.constant=50;
     
     
     self.searchbar.text=@"";
@@ -819,7 +792,7 @@
    //  self.searchbar.frame = CGRectMake(60, 0, self.weeklyTable.frame.size.width-60, 44);
     self.titleViewHeight.constant=22;
     self.addRowBackview.hidden=YES;
-    self.TopBarHeight.constant=0;
+    self.topBarHeight.constant=0;
     [UIView commitAnimations];
 
     isFilteredData=true;
@@ -855,24 +828,6 @@
 }
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
     
-    
-//    [searchBar resignFirstResponder];
-//    
-//    [self.searchbar setFrame:CGRectMake(0, 0, self.weeklyTable.frame.size.width, 44)];
-//    
-//    [UIView beginAnimations:@"animateTableView" context:nil];
-//    [UIView setAnimationDuration:0.2];
-//    
-//    self.titleViewHeight.constant=64;
-//    self.addRowBackview.hidden=NO;
-//    self.TopBarHeight.constant=50;
-//   self.searchbarHeight.constant=0;
-//    [UIView commitAnimations];
-//    
-//    self.searchbar.text=@"";
-//    isFilteredData=false;
-//    [self.weeklyTable reloadData];
-    
     [self.searchbar resignFirstResponder];
     [self.searchbar setShowsCancelButton:NO animated:YES];
     
@@ -880,13 +835,12 @@
     [UIView setAnimationDuration:0.2];
     self.titleViewHeight.constant=64;
     self.addRowBackview.hidden=NO;
-    self.TopBarHeight.constant=50;
+    self.topBarHeight.constant=50;
     [UIView commitAnimations];
     
     self.searchbar.text=@"";
     isFilteredData=false;
     [self.weeklyTable reloadData];
-
 }
 #pragma mark -
 #pragma mark === Core Data ===

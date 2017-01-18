@@ -11,9 +11,7 @@
 @interface DetailViewController : UIViewController<UIPopoverControllerDelegate,UITableViewDelegate,UITableViewDataSource,UIActionSheetDelegate,UIImagePickerControllerDelegate,UIGestureRecognizerDelegate,UITextFieldDelegate,UINavigationControllerDelegate>
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollview;
 @property (weak, nonatomic) IBOutlet UIView *contentview;
-//@property (weak, nonatomic) IBOutlet UIView *dateview;
 @property (weak, nonatomic) IBOutlet UIView *dateview;
-
 @property (weak, nonatomic) IBOutlet UIView *projectdetailview;
 @property (weak, nonatomic) IBOutlet UIView *infoview;
 @property (weak, nonatomic) IBOutlet UIView *switchView;
@@ -29,17 +27,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UIView *titleView;
 @property (weak, nonatomic) IBOutlet UIButton *doneButton;
-
 @property (weak, nonatomic) IBOutlet UIButton *receiptImageButton;
-
-@property  UITableView* expenseTypeTable;
-@property UIAlertController *alertcontroller;
-@property NSString * expenseCurrentCategory;
-
-@property NSInteger sheetId;
-@property NSInteger ItemId;
-@property NSInteger mode;
-@property NSString *titleText;
 @property (weak, nonatomic) IBOutlet UILabel *selectLabel;
 @property (weak, nonatomic) IBOutlet UILabel *attchtreceiptLabel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *infoviewHeight;
@@ -59,5 +47,15 @@
 @property (weak, nonatomic) IBOutlet UIView *addreceiptButtonBackView;
 @property (weak, nonatomic) IBOutlet UIButton *addreceiptButton;
 
+
+@property  UITableView* expenseTypeTable;
+@property UIAlertController *alertcontroller;
+@property NSString * expenseCurrentCategory;
+@property NSInteger sheetId;
+@property NSInteger ItemId;
+@property NSInteger mode;
+@property NSString *titleText;
+@property NSString *previousCustomer;
+@property NSString *previousProject;
 
 @end

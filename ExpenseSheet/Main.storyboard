@@ -4382,7 +4382,7 @@
                                 <rect key="frame" x="0.0" y="369" width="320" height="199"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap on date to see expense sheet of that week" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="puM-qO-JKm">
-                                        <rect key="frame" x="25" y="84.5" width="270" height="31.5"/>
+                                        <rect key="frame" x="25" y="84" width="270" height="32"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>

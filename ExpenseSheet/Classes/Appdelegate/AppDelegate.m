@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "Constants.h"
+#import "Utilities.h"
 //#import "ExpenseSheetDetailViewController.h"
 @interface AppDelegate ()
 @end
@@ -17,6 +18,15 @@
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
 #pragma mark Application Delegate Methods
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+//    NSArray *notificationArray=[[UIApplication sharedApplication]scheduledLocalNotifications];
+//    for(UILocalNotification *notification in notificationArray)
+//    {
+//        
+//                  [[UIApplication sharedApplication] cancelLocalNotification:notification ];
+//    }
+    
+    [[Utilities shareManager] moveToDocumentDirectory:SettingsFileName];
     
     // 3D touch handling on home screen app icon
 //    UIApplicationShortcutIcon * photoIcon = [UIApplicationShortcutIcon iconWithTemplateImageName:@"disclosure.png"]; // your customize icon
@@ -35,8 +45,7 @@
     }
     application.applicationIconBadgeNumber = 0;
 
-    
-    
+
     return ![self handleShortCutItem:shortcutItem];
 
 
@@ -68,6 +77,15 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     // Saves changes in the application's managed object context before the application terminates.
     [self saveContext];
+}
+- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
+{
+    if(![[NSUserDefaults standardUserDefaults] boolForKey:@"isNotFirstTime"])
+    {
+        [self setupLocalNotifications];
+        [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isNotFirstTime"];
+    }
+    
 }
 
 - (void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler{
@@ -172,12 +190,42 @@
                                             settingsForTypes:UIUserNotificationTypeBadge|UIUserNotificationTypeAlert|UIUserNotificationTypeSound
                                             categories:nil];
     [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+    
+    
 }
 - (void)handleNotification:(UILocalNotification *)notification {
     if ([self.window.rootViewController isKindOfClass:[UINavigationController class]]) {
 //        RemindMeViewController *rootController = (RemindMeViewController *)self.window.rootViewController;
 //        [rootController showReminder:notification];
     }
+}
+-(void)setupLocalNotifications
+{
+    
+    NSArray *notificationArray=[[UIApplication sharedApplication]scheduledLocalNotifications];
+        for(UILocalNotification *notification in notificationArray)
+        {
+    
+            [[UIApplication sharedApplication] cancelLocalNotification:notification ];
+        }
+    
+        NSDate *fireDate=[NSDate date];
+        NSCalendar *calendar = [NSCalendar currentCalendar];
+        NSDateComponents *comp = [[NSCalendar currentCalendar] components:NSCalendarUnitSecond
+                                                                 fromDate:fireDate];
+        [comp setWeekday:6];
+        [comp setHour:9];
+        [comp setMinute:0];
+        [comp setSecond:0];
+        fireDate = [calendar dateFromComponents:comp];
+        UILocalNotification *localNotif = [[UILocalNotification alloc] init];
+        localNotif.fireDate = fireDate;
+        localNotif.timeZone = [NSTimeZone localTimeZone];
+        localNotif.repeatInterval = NSCalendarUnitWeekOfYear;
+        localNotif.alertBody=@"Did you Submitted your expense sheet for this week?";
+        localNotif.alertTitle=APP_NAME;
+        NSLog(@" date %lu",kCFCalendarUnitDay);
+        [[UIApplication sharedApplication] scheduleLocalNotification:localNotif];
 }
 #pragma mark Handle peek
 - (BOOL)handleShortCutItem:(UIApplicationShortcutItem *)shortcutItem {

@@ -12,6 +12,7 @@
 #import "receiptViewController.h"
 #import "UIButton+button.h"
 #import "Utilities.h"
+#import "CombineViewController.h"
 @interface DetailViewController ()
 @end
 
@@ -26,19 +27,38 @@
     UIImagePickerController *_imagePicker;
     UIImage *_image;
     
-     NSDictionary *metrics;
+    NSDictionary *metrics;
 }
-#pragma mark -
-#pragma mark === View Controller Delegate ===
-#pragma mark -
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    [self makeUIAdjustments];
+    
+    
+}
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    [self.amountField endEditing:YES];
+    [self.descriptionField endEditing:YES];
+    
+}
+#pragma mark -
+#pragma mark === Configuring View ===
+#pragma mark -
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
+}
+-(void)makeUIAdjustments
+{
     self.addreceiptButtonBackView.layer.cornerRadius=10;
     self.doneButton.enabled=false;
-
+    
     self.titleView.backgroundColor=[[Utilities shareManager]backgroundColor];
     self.titleView.layer.shadowOffset = CGSizeMake(0, 5);
     self.titleView.layer.shadowRadius = 2;
@@ -49,10 +69,10 @@
     self.addmoreBackview.layer.shadowRadius = 2;
     self.addmoreBackview.layer.shadowOpacity = 0.3;
     self.addmoreBackview.layer.cornerRadius=25.0;
-
-
+    
+    
     [self.dateview bringSubviewToFront:self.selectLabel];
-
+    
     self.amountField.delegate=self;
     self.descriptionField.delegate=self;
     
@@ -61,12 +81,13 @@
     self.amountField.keyboardType=UIKeyboardTypeNumberPad;
     
     // configuring buttons hit area
-    [self.customerButton setHitTestEdgeInsets:UIEdgeInsetsMake(0, -12, 1, -320)];
-    [self.projectButton setHitTestEdgeInsets:UIEdgeInsetsMake(0, -12, 1, -320)];
-    [self.typeButton setHitTestEdgeInsets:UIEdgeInsetsMake(0, -12, 1, -320)];
-    [self.addreceiptButton setHitTestEdgeInsets:UIEdgeInsetsMake(0, -12, 1, -250
+    [self.customerButton setHitTestEdgeInsets:UIEdgeInsetsMake(-1, -12, -1, -320)];
+    [self.projectButton setHitTestEdgeInsets:UIEdgeInsetsMake(-1, -12, -1, -320)];
+    [self.typeButton setHitTestEdgeInsets:UIEdgeInsetsMake(-1, -12, -1, -320)];
+    [self.dateButton setHitTestEdgeInsets:UIEdgeInsetsMake(-1, -12, -1,-320
+                                                           )];
+    [self.addreceiptButton setHitTestEdgeInsets:UIEdgeInsetsMake(-1, -12, -1,-320
                                                                  )];
-  //  [self.typeButton setHitTestEdgeInsets:UIEdgeInsetsMake(0, -12, 1, -300)];
     
     expenseTypeArray =[NSArray arrayWithObjects:@"Sales",@"Software/Hardware",@"Lodging",@"Misc",@"Client Entertainment",@"Mileage",@"Per Deim",@"Air",@"Gase/Fuel",@"Phone",@"Taxi/Cab",@"Tips",@"Parking/Tolls",@"Rental Car",@"Employee - Gift",@"Education",@"Relocation Allowance", nil];
     
@@ -74,7 +95,7 @@
     UITapGestureRecognizer *singleFingerTapOnCombineView =
     [[UITapGestureRecognizer alloc] initWithTarget:self
                                             action:@selector(handleSingleTapCombineView:)];
-    [self.view addGestureRecognizer:singleFingerTapOnCombineView];
+    [self.combineView addGestureRecognizer:singleFingerTapOnCombineView];
     
     
     
@@ -102,21 +123,6 @@
     }
     
 }
--(void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    
-    [self.amountField endEditing:YES];
-    [self.descriptionField endEditing:YES];
-    
-}
-#pragma mark -
-#pragma mark === ConfiguringView ===
-#pragma mark -
-- (UIStatusBarStyle)preferredStatusBarStyle
-{
-    return UIStatusBarStyleLightContent;
-}
 -(void)configureView:(NSInteger)mode
 {
     if(mode==1)
@@ -142,8 +148,8 @@
         NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
         
         
-        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:ExpenseSheetDetail];
-        NSPredicate *predicate=[NSPredicate predicateWithFormat:@"foreignKey==%@",[NSNumber numberWithInteger:self.sheetId]];
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:ExpenseSheetDetailTable];
+        NSPredicate *predicate=[NSPredicate predicateWithFormat:@"foreignKey==%@ AND id==%@",[NSNumber numberWithInteger:self.sheetId],[NSNumber numberWithInteger:self.ItemId]];
         [fetchRequest setPredicate:predicate];
         NSArray *results = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
         
@@ -167,7 +173,7 @@
             [self.typeButton setTitle:[NSString stringWithFormat:@"%@",[Detail valueForKey:ExpenseType]]forState:UIControlStateNormal];
             if([Detail valueForKey:Receipt])
             {
-                [self.addReceiptButton setTitle:[NSString stringWithFormat:@"%@",[Detail valueForKey:Receipt]]forState:UIControlStateNormal];
+                [self.addreceiptButton setTitle:[NSString stringWithFormat:@"%@",[Detail valueForKey:Receipt]]forState:UIControlStateNormal];
             }
             
         }
@@ -242,21 +248,27 @@
         NSManagedObjectContext *context = [self managedObjectContext];
         
         // Create a new managed object
-        NSManagedObject *newSheetDetail = [NSEntityDescription insertNewObjectForEntityForName:ExpenseSheetDetail inManagedObjectContext:context];
+        NSManagedObject *newSheetDetail = [NSEntityDescription insertNewObjectForEntityForName:ExpenseSheetDetailTable inManagedObjectContext:context];
         [newSheetDetail setValue:[NSNumber numberWithInteger:self.ItemId] forKey:DetailId];
         [newSheetDetail setValue:self.descriptionField.text forKey:DetailDescription];
-        [newSheetDetail setValue:self.addReceiptButton.titleLabel.text forKey:BillType];
+        [newSheetDetail setValue:self.addreceiptButton.titleLabel.text forKey:Receipt];
         [newSheetDetail setValue:self.typeButton.titleLabel.text forKey:ExpenseType];
         [newSheetDetail setValue:self.projectButton.titleLabel.text forKey:ProjectName];
         [newSheetDetail setValue:self.customerButton.titleLabel.text forKey:CustomerName];
-        [newSheetDetail setValue:[NSDate date] forKey:ExpenseDate];
+        if(_image)
+        {
+            [self saveImage];
+        }
+        
+        
+        // NSDateFormatter * df = [[NSDateFormatter alloc] init];
+        // [df setDateFormat:@"MM-dd-yyyy"]; // from here u can change format..
+        NSLog(@"datepicker date is %@",datepicker.date);
+        [newSheetDetail setValue:datepicker.date forKey:ExpenseDate];
         [newSheetDetail setValue:[NSNumber numberWithDouble:[self.amountField.text doubleValue]]forKey:Amount];
         [newSheetDetail setValue:[NSNumber numberWithInteger:self.sheetId] forKey:ForeignKey];
         
-        
-        
         NSLog(@"self.descriptionField.text is %ld",(long)self.sheetId);
-        
         
         NSError *error = nil;
         // Save the object to persistent store
@@ -275,7 +287,7 @@
         NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
         
         
-        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:ExpenseSheetDetail];
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:ExpenseSheetDetailTable];
         NSPredicate *predicate=[NSPredicate predicateWithFormat:@"foreignKey==%@",[NSNumber numberWithInteger:self.sheetId]];
         [fetchRequest setPredicate:predicate];
         NSArray *results = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
@@ -295,7 +307,6 @@
         else
         {
         }
-        
         
         [[NSUserDefaults standardUserDefaults]setBool:YES forKey:isBackFromDetailView];
         //  [self.navigationController popViewControllerAnimated:YES];
@@ -318,32 +329,45 @@
     
     UIAlertController *alert=[UIAlertController alertControllerWithTitle:@"Select Customer" message:nil preferredStyle:UIAlertControllerStyleAlert];
     
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Customer 1" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+    UIAlertAction *customer1Action = [UIAlertAction actionWithTitle:@"Smart IS" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         
-        [self.customerButton setTitle:@"Customer 1" forState:UIControlStateNormal]
+        [self.customerButton setTitle:@"Smart IS" forState:UIControlStateNormal]
         ;
         
     }];
-    UIAlertAction *Ok = [UIAlertAction actionWithTitle:@"Customer 2" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+    UIAlertAction *customer2Action = [UIAlertAction actionWithTitle:@"Apple" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         
-        [self.customerButton setTitle:@"Customer 2" forState:UIControlStateNormal]
+        [self.customerButton setTitle:@"Apple" forState:UIControlStateNormal]
         ;
         
     }];
+    UIAlertAction *customer3Action = [UIAlertAction actionWithTitle:@"Hydrite" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        
+        [self.customerButton setTitle:@"Hydrite" forState:UIControlStateNormal]
+        ;
+        
+    }];
+    
+    UIAlertAction *customer4Action = [UIAlertAction actionWithTitle:@"Oracular Inc" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        
+        [self.customerButton setTitle:@"Oracular Inc" forState:UIControlStateNormal]
+        ;
+        
+    }];
+    
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         
         
         
     }];
     
-    
-    [alert addAction:cancelAction];
-    [alert addAction:Ok];
+    [alert addAction:customer1Action];
+    [alert addAction:customer2Action];
+    [alert addAction:customer3Action];
+    [alert addAction:customer4Action];
     [alert addAction:cancel];
     
-    
     [self presentViewController:alert animated:YES completion:nil];
-    
     
 }
 - (IBAction)projectButtonAction:(id)sender {
@@ -511,39 +535,39 @@
     
     if(UI_USER_INTERFACE_IDIOM()==UIUserInterfaceIdiomPad)
     {
-    
-    
+        
+        
         UIViewController *viewController = [[UIViewController alloc]init];
         UIView *viewForDatePicker = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 100)];
-
-    [viewForDatePicker addSubview:datepicker];
-    [viewController.view addSubview:viewForDatePicker];
-    
-    popOverForDatePicker = [[UIPopoverController alloc]initWithContentViewController:viewController];
-    popOverForDatePicker.delegate = self;
-    [popOverForDatePicker setPopoverContentSize:CGSizeMake(self.view.frame.size.width, 130) animated:NO];
-    [popOverForDatePicker presentPopoverFromRect:button.frame inView:self.dateview  permittedArrowDirections:(UIPopoverArrowDirectionUp|UIPopoverArrowDirectionDown| UIPopoverArrowDirectionLeft|UIPopoverArrowDirectionRight) animated:YES];
+        
+        [viewForDatePicker addSubview:datepicker];
+        [viewController.view addSubview:viewForDatePicker];
+        
+        popOverForDatePicker = [[UIPopoverController alloc]initWithContentViewController:viewController];
+        popOverForDatePicker.delegate = self;
+        [popOverForDatePicker setPopoverContentSize:CGSizeMake(self.view.frame.size.width, 130) animated:NO];
+        [popOverForDatePicker presentPopoverFromRect:button.frame inView:self.dateview  permittedArrowDirections:(UIPopoverArrowDirectionUp|UIPopoverArrowDirectionDown| UIPopoverArrowDirectionLeft|UIPopoverArrowDirectionRight) animated:YES];
     }
     else
-
+        
     {
         transparantview=[[UIView alloc] initWithFrame:self.view.frame];
         transparantview.backgroundColor=[UIColor colorWithRed:0.0/255.0 green:0.0/255.0 blue:0.0/255.0 alpha:0.3];
         
         UIView *viewForDatePicker = [[UIView alloc]initWithFrame:CGRectMake(0, transparantview.frame.size.height-240, self.view.frame.size.width, 240)];
-           viewForDatePicker.layer.cornerRadius=3.0;
-         [viewForDatePicker setBackgroundColor:[UIColor lightGrayColor]];
+        viewForDatePicker.layer.cornerRadius=3.0;
+        [viewForDatePicker setBackgroundColor:[UIColor lightGrayColor]];
         UIButton* doneButton=[UIButton buttonWithType:UIButtonTypeCustom];
         doneButton.frame=CGRectMake(self.view.frame.size.width-60-5, 0, 60, 39);
         [doneButton setTitle:@"Done" forState:UIControlStateNormal];
-          [doneButton setTitleColor:[[Utilities shareManager]backgroundColor] forState:UIControlStateNormal];
-    [doneButton.layer setBorderColor:[UIColor lightGrayColor].CGColor];
-    //   [doneButton.layer setBorderWidth:1.0];
+        [doneButton setTitleColor:[[Utilities shareManager]backgroundColor] forState:UIControlStateNormal];
+        [doneButton.layer setBorderColor:[UIColor lightGrayColor].CGColor];
+        //   [doneButton.layer setBorderWidth:1.0];
         [doneButton addTarget:self action:@selector(datePickedOkButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-       //  doneButton.backgroundColor=[UIColor colorWithRed:234.0/255.0 green:235.0/255.0 blue:240.0/255.0 alpha:1.0];
+        //  doneButton.backgroundColor=[UIColor colorWithRed:234.0/255.0 green:235.0/255.0 blue:240.0/255.0 alpha:1.0];
         
-          doneButton.backgroundColor=[UIColor whiteColor];
-      
+        doneButton.backgroundColor=[UIColor whiteColor];
+        
         [viewForDatePicker addSubview:doneButton];
         
         
@@ -556,51 +580,51 @@
         [viewForDatePicker addSubview:headinglabel];
         headinglabel.textAlignment=NSTextAlignmentCenter;
         
-   //    (self.view.frame.size.width-60, 0, 60, 39)
+        //    (self.view.frame.size.width-60, 0, 60, 39)
         UIButton* cancelButton=[UIButton buttonWithType:UIButtonTypeCustom];
         cancelButton.frame=CGRectMake(5, 0, 60, 39);
         [cancelButton setTitle:@"Cancel" forState:UIControlStateNormal];
-       [cancelButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-         [cancelButton setTitleColor:[[Utilities shareManager]backgroundColor] forState:UIControlStateNormal];
+        [cancelButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [cancelButton setTitleColor:[[Utilities shareManager]backgroundColor] forState:UIControlStateNormal];
         [cancelButton.layer setBorderColor:[UIColor lightGrayColor].CGColor];
         
         doneButton.titleLabel.textAlignment=NSTextAlignmentRight;
-         cancelButton.titleLabel.textAlignment=NSTextAlignmentLeft;
-     //  [cancelButton.layer setBorderWidth:1.0];
-    //   cancelButton.backgroundColor=[UIColor whiteColor];
-         [cancelButton addTarget:self action:@selector(datePickedCancelButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+        cancelButton.titleLabel.textAlignment=NSTextAlignmentLeft;
+        //  [cancelButton.layer setBorderWidth:1.0];
+        //   cancelButton.backgroundColor=[UIColor whiteColor];
+        [cancelButton addTarget:self action:@selector(datePickedCancelButtonAction:) forControlEvents:UIControlEventTouchUpInside];
         [viewForDatePicker addSubview:cancelButton];
- doneButton.titleLabel.font=[UIFont systemFontOfSize:14];
-         cancelButton.titleLabel.font=[UIFont systemFontOfSize:14];
+        doneButton.titleLabel.font=[UIFont systemFontOfSize:14];
+        cancelButton.titleLabel.font=[UIFont systemFontOfSize:14];
         //  doneButton.layer.cornerRadius=3.0;
         //  cancelButton.layer.cornerRadius=3.0;
-          viewForDatePicker.layer.cornerRadius=3.0;
-            [viewForDatePicker addSubview:datepicker];
+        viewForDatePicker.layer.cornerRadius=3.0;
+        [viewForDatePicker addSubview:datepicker];
         [transparantview addSubview:viewForDatePicker];
-     //   viewForDatePicker.center=transparantview.center;
+        //   viewForDatePicker.center=transparantview.center;
         
         viewForDatePicker.backgroundColor=[UIColor whiteColor];
-       // viewForDatePicker.layer.borderColor=[UIColor lightGrayColor].CGColor;
-      //  viewForDatePicker.layer.borderWidth=1.0;
+        // viewForDatePicker.layer.borderColor=[UIColor lightGrayColor].CGColor;
+        //  viewForDatePicker.layer.borderWidth=1.0;
         
         [transparantview bringSubviewToFront:viewForDatePicker];
-
- 
-       // viewForDatePicker.center=transparantview.center;
+        
+        
+        // viewForDatePicker.center=transparantview.center;
         [self.view addSubview: transparantview];
         
         
     }
 }
 /*
-#pragma mark - Navigation
-
-// In a storyboard-baszed application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-baszed application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 - (IBAction)documentTextfieldAction:(id)sender {
 }
 - (IBAction)resetButtonAction:(id)sender {
@@ -621,10 +645,10 @@
     NSManagedObjectContext *context = [self managedObjectContext];
     
     // Create a new managed object
-    NSManagedObject *newSheetDetail = [NSEntityDescription insertNewObjectForEntityForName:ExpenseSheetDetail inManagedObjectContext:context];
+    NSManagedObject *newSheetDetail = [NSEntityDescription insertNewObjectForEntityForName:ExpenseSheetDetailTable inManagedObjectContext:context];
     [newSheetDetail setValue:[NSNumber numberWithInteger:self.ItemId] forKey:DetailId];
     [newSheetDetail setValue:self.descriptionField.text forKey:DetailDescription];
-    [newSheetDetail setValue:self.addReceiptButton.titleLabel.text forKey:BillType];
+    [newSheetDetail setValue:self.addreceiptButton.titleLabel.text forKey:Receipt];
     [newSheetDetail setValue:self.typeButton.titleLabel.text forKey:ExpenseType];
     [newSheetDetail setValue:self.projectButton.titleLabel.text forKey:ProjectName];
     [newSheetDetail setValue:self.customerButton.titleLabel.text forKey:CustomerName];
@@ -679,38 +703,38 @@
     
     [self.scrollview setContentOffset:CGPointMake(0, 0)];
     
-   // if ([UIImagePickerController /isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+    // if ([UIImagePickerController /isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+    
+    UIAlertController *receiptALertCotroller=[UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction *takePhotoAction= [UIAlertAction actionWithTitle:@"Take Photo" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         
-            UIAlertController *receiptALertCotroller=[UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+        //   [self.customerButton setTitle:@"Customer 1" forState:UIControlStateNormal]
+        // ;
+        [self takePhoto];
         
-        UIAlertAction *takePhotoAction= [UIAlertAction actionWithTitle:@"Take Photo" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-            
-         //   [self.customerButton setTitle:@"Customer 1" forState:UIControlStateNormal]
-           // ;
-            [self takePhoto];
-            
-        }];
-        UIAlertAction *LibraryAction = [UIAlertAction actionWithTitle:@"Choose from Library" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-            
-            //   [self.customerButton setTitle:@"Customer 1" forState:UIControlStateNormal]
-            // ;
-             [self choosePhotoFromLibrary];
-        }];
+    }];
+    UIAlertAction *LibraryAction = [UIAlertAction actionWithTitle:@"Choose from Library" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        
+        //   [self.customerButton setTitle:@"Customer 1" forState:UIControlStateNormal]
+        // ;
+        [self choosePhotoFromLibrary];
+    }];
     UIAlertAction *cancelction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
         
-        }];
-
+    }];
     
-        [receiptALertCotroller addAction:takePhotoAction];
-        [receiptALertCotroller addAction:LibraryAction];
-        [receiptALertCotroller addAction:cancelction];
-
-        [self presentViewController:receiptALertCotroller animated:YES completion:nil];
-
-//          } else {
-//        
-//        [self choosePhotoFromLibrary];
-//    }
+    
+    [receiptALertCotroller addAction:takePhotoAction];
+    [receiptALertCotroller addAction:LibraryAction];
+    [receiptALertCotroller addAction:cancelction];
+    
+    [self presentViewController:receiptALertCotroller animated:YES completion:nil];
+    
+    //          } else {
+    //
+    //        [self choosePhotoFromLibrary];
+    //    }
 }
 - (IBAction)receiptImageButtonAction:(id)sender {
     
@@ -734,19 +758,17 @@
     
     NSDateFormatter * df = [[NSDateFormatter alloc] init];
     [df setDateFormat:@"MM-dd-yyyy"]; // from here u can change format..
-    
     [self.dateButton setTitle:[df stringFromDate:datepicker.date] forState:UIControlStateNormal]
     ;
-
     [transparantview removeFromSuperview];
-
+    
 }
 
 -(void)datePickedCancelButtonAction:(id)sender
 {
- 
+    
     [transparantview removeFromSuperview];
-
+    
 }
 #pragma mark -
 #pragma mark === Tableview Delegate ===
@@ -824,7 +846,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [self.typeButton setTitle:[expenseTypeArray objectAtIndex:indexPath.row] forState:UIControlStateNormal];
-    [self setAddmoreButton];
+    [self setAddMoreButton];
     [self.alertcontroller dismissViewControllerAnimated:YES completion:nil];
 }
 #pragma mark -
@@ -839,8 +861,7 @@
 }
 - (void)handleSingleTapCombineView:(UITapGestureRecognizer *)recognizer {
     //CGPoint location = [recognizer locationInView:[recognizer.view superview]];
-    
-    
+    [self performSegueWithIdentifier:@"CustomerProjectSegue" sender:nil];
     //Do stuff here...
 }
 
@@ -856,7 +877,7 @@
 }
 -(BOOL) textFieldShouldEndEditing:(UITextField *)textField
 {
-    [self setAddmoreButton];
+    [self setAddMoreButton];
     return YES;
 }
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -868,10 +889,6 @@
     [textField resignFirstResponder];
     return YES;
 }
-
-#pragma mark -
-#pragma mark === UIImagePickerController Delegate ===
-#pragma mark -
 
 //must conform to both UIImagePickerControllerDelegate and UINavigationControllerDelegate
 //but don’t have to implement any of the UINavigationControllerDelegate methods.
@@ -889,7 +906,7 @@
     
     [self dismissViewControllerAnimated:YES completion:nil];
     
-    [self setAddmoreButton];
+    [self setAddMoreButton];
 }
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
@@ -912,11 +929,11 @@
 #pragma mark -
 #pragma mark === Helper methods ===
 #pragma mark -
--(void)setAddmoreButton
+-(void)setAddMoreButton
 {
-    [self performSelector:@selector(callwithdelay) withObject:nil afterDelay:2.0];
+    [self performSelector:@selector(callWithDelay) withObject:nil afterDelay:1.0];
 }
--(void)callwithdelay
+-(void)callWithDelay
 {
     if(([self.customerButton.titleLabel.text isEqualToString:@"Add Customer"]||[self.projectButton.titleLabel.text isEqualToString:@"Add Project"]||[self.typeButton.titleLabel.text isEqualToString:@"Add Type"])||[self.amountField.text isEqualToString:@""]||[self.descriptionField.text isEqualToString:@""]||[self.attchtreceiptLabel.text isEqualToString:@"Receipt"])
     {
@@ -953,7 +970,15 @@
     _imagePicker.allowsEditing = YES;
     [self presentViewController:_imagePicker animated:YES completion:nil];
 }
-
+- (void)saveImage {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *imageName=[NSString stringWithFormat:@"%ld_%ld.png",self.sheetId,self.ItemId];
+    NSString *savedImagePath = [documentsDirectory stringByAppendingPathComponent:imageName];
+    NSData *imageData = UIImagePNGRepresentation(
+                                                 _image);
+    [imageData writeToFile:savedImagePath atomically:NO];
+}
 #pragma mark -
 #pragma mark === Navigation ===
 #pragma mark -
@@ -966,6 +991,12 @@
         receiptViewController *receiptVC=(receiptViewController *)segue.destinationViewController;
         receiptVC.image=_image;
         
+    }
+    else if ([segue.identifier isEqualToString:@"CustomerProjectSegue"])
+    {
+        CombineViewController *combineVc=segue.destinationViewController;
+        combineVc.existingCustomer=self.customerButton.titleLabel.text;
+        combineVc.existingProject=self.projectButton.titleLabel.text;
     }
 }
 @end

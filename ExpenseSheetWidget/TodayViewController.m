@@ -22,7 +22,12 @@
     // Do any additional setup after loading the view from its nib.
     
     self.createNewExpenseSheetButton.layer.cornerRadius=3.0;
-     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshData:) name:AppDidBecomeActiveNotification object:nil];
+//     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshData:) name:AppDidBecomeActiveNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(refreshData:)
+                                                 name:NSUserDefaultsDidChangeNotification
+                                               object:nil];
     
    // NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
     //NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:ExpenseSheet];
@@ -51,14 +56,18 @@
     NSUserDefaults *mySharedDefaults = [[NSUserDefaults alloc] initWithSuiteName:AppGroupName];
     NSLog(@"desc is %@", [mySharedDefaults objectForKey:@"Description"]);
     [mySharedDefaults objectForKey:@"Description"];
-   // [self.createNewExpenseSheetButton setTitle: [mySharedDefaults objectForKey:@"Description"] forState:UIControlStateNormal] ;
+    [self.createNewExpenseSheetButton setTitle: [mySharedDefaults objectForKey:@"Description"] forState:UIControlStateNormal] ;
     
 }
 - (IBAction)createNewExpenseSheetButtonAction:(id)sender {
 }
 -(void)refreshData:(NSNotification *)notification
 {
-    
+    NSLog(@"refresh data");
+    NSUserDefaults *mySharedDefaults = [[NSUserDefaults alloc] initWithSuiteName:AppGroupName];
+    NSLog(@"desc is %@", [mySharedDefaults objectForKey:@"Description"]);
+    [mySharedDefaults objectForKey:@"Description"];
+     [self.createNewExpenseSheetButton setTitle: [mySharedDefaults objectForKey:@"Description"] forState:UIControlStateNormal] ;
 }
 
 @end

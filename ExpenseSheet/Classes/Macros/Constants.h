@@ -10,24 +10,26 @@
 #define Constants_h
 
 #define APP_NAME @"Expenese Sheet"
-
+// Group name
+#define AppGroupName                  @"group.DeveloperTestAppGroup"
 //blur rgb
 #define R 131.0
 #define G 162.0
 #define B 170.0
 
-#define isBackFromWeekView            @"isBackFromWeekView" // bool
-#define isBackFromDetailView          @"isBackFromDetailView" // bool
+#define isBackFromWeekView              @"isBackFromWeekView" // bool
+#define isBackFromDetailView            @"isBackFromDetailView" // bool
 
-// Group name
-#define AppGroupName                  @"group.DeveloperTestGroup"
+
 // Entities
-#define ExpenseSheet                   @"ExpenseSheet"
-#define ExpenseSheetDetail             @"ExpenseSheetDetail"
-
+#define ExpenseSheetTable               @"ExpenseSheet"
+#define ExpenseSheetDetailTable         @"ExpenseSheetDetail"
 // Attributes
 // expensesheeet
-
+#define SheetId                         @"id"
+#define SheetDescription                @"sheetDescription"
+#define StartDate                       @"date"
+#define Status                          @"status"
 //expensesheetdetail
 #define ExpenseDate                     @"expenseDate"
 #define BillType                        @"billType"
@@ -41,5 +43,12 @@
 #define ReImburse                       @"reImburse"
 #define Amount                          @"expenseAmount"
 // Notifications Names
-#define AppDidBecomeActiveNotification   @"AppDidBecomeActiveNotification"
+#define AppDidBecomeActiveNotification  @"AppDidBecomeActiveNotification"
+
+#pragma mark - File Names
+#define SettingsFileName                @"Settings.plist"
+
+#pragma mark - Settings Keys
+#define WeekStartDay                     @"startWeekDay"
+#define NotificationDay                  @""
 #endif /* Constants_h */

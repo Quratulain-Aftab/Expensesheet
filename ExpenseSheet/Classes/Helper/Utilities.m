@@ -67,4 +67,48 @@
     UIColor *color=[UIColor colorWithRed:R/255.0 green:G/255.0 blue:B/255.0 alpha:0.7];
     return color;
 }
+#pragma mark - Move to Directory
+
+- (void)moveToDocumentDirectory:(NSString *)fileName
+{
+    NSFileManager *fileManger=[NSFileManager defaultManager];
+    NSError *error;
+    NSArray *pathsArray = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
+    
+    NSString *doumentDirectoryPath=[pathsArray objectAtIndex:0];
+    
+    NSString *destinationPath= [doumentDirectoryPath stringByAppendingPathComponent:fileName];
+    
+    if ([fileManger fileExistsAtPath:destinationPath]){
+        
+        return;
+    }
+    NSString *sourcePath =[[[NSBundle mainBundle] resourcePath]stringByAppendingPathComponent:fileName];
+    
+    [fileManger copyItemAtPath:sourcePath toPath:destinationPath error:&error];
+    if(error)
+    {
+    }
+}
+
+- (BOOL)getUpdatedSettings:(NSString *)key
+{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *basePath = ([paths count] > 0) ? [paths objectAtIndex:0] : nil;
+    NSString *docfilePath = [basePath stringByAppendingPathComponent:SettingsFileName];
+    NSMutableDictionary *dictionary = [NSMutableDictionary dictionaryWithContentsOfFile:docfilePath];
+    BOOL check = [[dictionary objectForKey:key] boolValue];
+    return check;
+}
+-(NSString*)getUpdatedSettingsForString:(NSString *)key
+{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *basePath = ([paths count] > 0) ? [paths objectAtIndex:0] : nil;
+    NSString *docfilePath = [basePath stringByAppendingPathComponent:SettingsFileName];
+    NSMutableDictionary *dictionary = [NSMutableDictionary dictionaryWithContentsOfFile:docfilePath];
+    NSString *check = [dictionary objectForKey:key];
+    
+    return check;
+}
+
 @end

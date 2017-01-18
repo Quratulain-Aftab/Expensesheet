@@ -1,12 +1,15 @@
 PODS:
+  - FSCalendar (2.6.0)
   - MGSwipeTableCell (1.5.6)
 
 DEPENDENCIES:
+  - FSCalendar
   - MGSwipeTableCell
 
 SPEC CHECKSUMS:
+  FSCalendar: c00fa5f4c3ec343ee6f7b804ae19322e9898bb84
   MGSwipeTableCell: 616700eb0ffd1c611ba909066cb7fd739790a0a7
 
-PODFILE CHECKSUM: 8ebe8eab2d592cdf07461e74de045594d7fdcffe
+PODFILE CHECKSUM: c6896b597375b0ed3a2e653f8ebf882d6682af10
 
 COCOAPODS: 1.1.1

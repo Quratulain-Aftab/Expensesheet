@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>notificationsType</key>
+	<string>Weekly</string>
+	<key>startWeekDay</key>
+	<string>Monday</string>
+	<key>notificationTime</key>
+	<string>9</string>
+	<key>isFeedback</key>
+	<false/>
+	<key>isPurchased</key>
+	<false/>
+	<key>isNotificationPopup</key>
+	<false/>
+	<key>transliteration</key>
+	<false/>
+	<key>translation</key>
+	<true/>
+	<key>notification</key>
+	<true/>
+	<key>fontSize</key>
+	<integer>34</integer>
+	<key>fontStyle</key>
+	<string>PDMS_NastaliqNafees</string>
+	<key>translationLanguage</key>
+	<string>Urdu (Ahmed Raza Khan)</string>
+	<key>selectedReciter</key>
+	<string>Abdul Basit</string>
+</dict>
+</plist>

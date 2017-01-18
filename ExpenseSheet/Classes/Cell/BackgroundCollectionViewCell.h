@@ -10,5 +10,8 @@
 
 @interface BackgroundCollectionViewCell : UICollectionViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *backgroundImageView;
+@property (weak, nonatomic) IBOutlet UILabel *label;
+@property (weak, nonatomic) IBOutlet UILabel *dateLabel;
+
 
 @end

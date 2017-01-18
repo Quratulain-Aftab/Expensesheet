@@ -29,7 +29,7 @@
     self.SheetPreviewTable.dataSource=self;
     
     NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:ExpenseSheetDetail];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:ExpenseSheetDetailTable];
     NSPredicate *predicate=[NSPredicate predicateWithFormat:@"foreignKey==%@",[NSNumber numberWithInteger:self.sheetId]];
     [fetchRequest setPredicate:predicate];
     NSSortDescriptor *sort = [[NSSortDescriptor alloc]

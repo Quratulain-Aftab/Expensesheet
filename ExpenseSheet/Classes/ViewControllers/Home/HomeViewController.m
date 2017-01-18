@@ -16,6 +16,8 @@
 #import "CurrentWeekCell.h"
 #import "Utilities.h"
 #import "SheetPreviewViewController.h"
+#import "UIButton+button.h"
+#import "CalendarViewController.h"
 @interface HomeViewController ()
 @property (nonatomic, strong) id previewingContext;
 @property (strong) NSMutableArray *dataSource;
@@ -39,20 +41,20 @@
     NSString *PreviewsheetTitle;
     
     NSMutableArray *currentWeekDataSource;
+    
+    BOOL shouldPresentDetailVC;
+    NSInteger itemID;
 
 }
 @synthesize imagePicker;
-#pragma mark -
-#pragma mark === View Controller Delegate ===
-#pragma mark -
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
     [self makeUIAdjustments];
-    [self check3DTouch];
-    
+   
    }
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -62,11 +64,10 @@
     
     if([[NSUserDefaults standardUserDefaults]boolForKey:isBackFromWeekView])
     {
-        
         [self.sheetsListTable setEditing:NO];
         [self.editButton setTitle:@"Edit" forState:UIControlStateNormal];
         [[NSUserDefaults standardUserDefaults]setBool:NO forKey:isBackFromWeekView];
-       }
+    }
     
     
   }
@@ -89,7 +90,7 @@
                                                   object:nil];
 }
 #pragma mark -
-#pragma mark === ConfiguringView ===
+#pragma mark === Configuring View ===
 #pragma mark -
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
@@ -99,6 +100,14 @@
 {
     self.mainview.backgroundColor=[[Utilities shareManager]backgroundColor];
     self.myExpenseSheetsView.backgroundColor=[[Utilities shareManager]backgroundColor];
+    self.closeListButton.hitTestEdgeInsets=UIEdgeInsetsMake(-5, -5, -5, -10);
+    self.editButton.hitTestEdgeInsets=UIEdgeInsetsMake(-5, -5, -5, -10);
+    
+     self.createButton.hitTestEdgeInsets=UIEdgeInsetsMake(-5, -5, -5, -10);
+     self.createViewCancelButton.hitTestEdgeInsets=UIEdgeInsetsMake(-5, -10, -5, -5);
+    
+    self.calendarButton.layer.cornerRadius=16;
+    self.calendarButton.clipsToBounds=YES;
     
     currentWeekDataSource=[[NSMutableArray alloc]init]
     ;
@@ -117,6 +126,7 @@
     self.CurrentWeekTable.delegate=self;
     self.CurrentWeekTable.dataSource=self;
     [self.CurrentWeekTable setEditing:NO animated:YES];
+    
     
     self.createButton.enabled=false;
     
@@ -141,7 +151,6 @@
     self.titleView.layer.shadowOpacity = 0.3;
     
     self.pickerviewTitle.backgroundColor=[[Utilities shareManager]backgroundColor];
-    
     self.pickerviewTitle.layer.shadowOffset = CGSizeMake(0, 5);
     self.pickerviewTitle.layer.shadowRadius = 2;
     self.pickerviewTitle.layer.shadowOpacity = 0.3;
@@ -151,11 +160,13 @@
     self.createViewTitle.layer.shadowRadius = 2;
     self.createViewTitle.layer.shadowOpacity = 0.3;
     
+    [self check3DTouch];
+    
 }
 -(void)adjustTable
 {
     NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:ExpenseSheet];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:ExpenseSheetTable];
     NSSortDescriptor *sort = [[NSSortDescriptor alloc]
                               initWithKey:@"id" ascending:NO];
     [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
@@ -229,23 +240,30 @@
 }
 - (IBAction)addSheetButtonAction:(id)sender
 {
+    self.pickerviewLabel.text=[self getWeekStartDayStringFromDate:[NSDate date] andFormate:@"E dd-MM-yyyy"];
+    self.createDatePicker.date=[NSDate date];
     
+    self.createButton.enabled=NO;
     [self.createview setFrame:CGRectMake( 0.0f, self.view.frame.size.height, self.view.frame.size.width,self.view.frame.size.height)];
     [self.view addSubview:self.createview];
-    [self.view bringSubviewToFront:self.createview];//notice this is OFF screen!
+    [self.view bringSubviewToFront:self.createview];// this is OFF screen!
     [UIView beginAnimations:@"animateTableView" context:nil];
     [UIView setAnimationDuration:0.5];
     self.createview.frame=self.view.frame;
     [UIView commitAnimations];
     
-//    CreateViewCell1 *cell1=[self.cerateviewTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-   // cell1.startDateLabel.text=[]
-    CreateViewCell2 *cell2=[self.cerateviewTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
-    [cell2.descriptionTextfiled setText:@""];
-    [cell2.descriptionTextfiled becomeFirstResponder];
-    [cell2 isFocused];
     
+    CreateViewCell1 *cell1=[self.cerateviewTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    cell1.dateLabelCreateView.text=[self getWeekStartDayStringFromDate:[NSDate date] andFormate:@"E dd-MM-yy"];
+    CreateViewCell2 *cell2=[self.cerateviewTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+    cell2.descriptionTextfiled.text=@"";
+    [self performSelector:@selector(appearKeyboard:) withObject:cell2 afterDelay:0.5];
 }
+- (IBAction)calendarButtonAction:(id)sender {
+    
+      [self performSegueWithIdentifier:@"CalendarSegue" sender:nil];
+}
+
 - (IBAction)shareButtonAction:(id)sender {
     
     UIImage *image =[UIImage imageNamed:@"logo"];
@@ -422,6 +440,7 @@
 - (IBAction)cancelButtonAction:(id)sender
 {
     CreateViewCell2 *cell2=[self.cerateviewTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+    cell2.descriptionTextfiled.text=@"";
     [cell2.descriptionTextfiled endEditing:YES];
     [UIView animateWithDuration:0.5
                      animations:^{
@@ -435,45 +454,83 @@
 }
 - (IBAction)createButtonAction:(id)sender
 {
-     CreateViewCell2 *cell2=[self.cerateviewTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+   
+    CreateViewCell2 *cell=[self.cerateviewTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+    [cell.descriptionTextfiled resignFirstResponder];
     
-    if(![cell2.descriptionTextfiled.text isEqualToString:@""])
+    
+    for(NSManagedObject *sheet in self.dataSource)
     {
-    [self.EmptyTableView removeFromSuperview];
+        NSDate *date=[sheet valueForKey:@"date"];
+        if([date isEqualToDate:[self getWeekStartDateFromDate:self.createDatePicker.date]])
+        {
+            NSLog(@"already exists");
+            UIAlertController *alert=[UIAlertController alertControllerWithTitle:APP_NAME message:@"Expense sheet for specified week already exists" preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertAction *openSheetAction = [UIAlertAction actionWithTitle:@"Open Sheet" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                
+                sheetID=[[sheet valueForKey:@"id"] integerValue];
+                sheetTitle=[sheet valueForKey:@"sheetDescription"];
+                [self.createview removeFromSuperview];
+                [self performSegueWithIdentifier:@"weeksegue" sender:nil];
+
+            }];
+            UIAlertAction *selectOtherDateAction = [UIAlertAction actionWithTitle:@"Select other date" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                
+                [self presentDatePickerView];
+            }];
+            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
+                
+                
+            }];
+            [alert addAction:openSheetAction];
+            [alert addAction:selectOtherDateAction];
+            [alert addAction:cancelAction];
+            
+            [self.navigationController presentViewController:alert animated:YES completion:nil];
+            return;
+        }
+        }
     
-    NSManagedObjectContext *context = [self managedObjectContext];
-    
-    NSInteger idd=0;
-    if([[NSUserDefaults standardUserDefaults]integerForKey:@"sheetID"])
-    {
-        idd=[[NSUserDefaults standardUserDefaults]integerForKey:@"sheetID"];
-    }
+    CreateViewCell2 *cell2=[self.cerateviewTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
     
 
-    idd=idd+1;
-    
-    [[NSUserDefaults standardUserDefaults]setInteger:idd forKey:@"sheetID"];
-    
-    sheetID=idd;
-
-    sheetTitle=cell2.descriptionTextfiled.text;
-    
-    NSManagedObject *newSheet = [NSEntityDescription insertNewObjectForEntityForName:ExpenseSheet inManagedObjectContext:context];
-    [newSheet setValue:[NSNumber numberWithInteger:idd] forKey:@"id"];
-    [newSheet setValue:cell2.descriptionTextfiled.text forKey:@"sheetDescription"];
-    [newSheet setValue:self.createDatePicker.date forKey:@"date"];
-    [newSheet setValue:[NSNumber numberWithBool:NO] forKey:@"status"];
-
-    NSError *error = nil;
-    // Save the object to persistent store
-    if (![context save:&error]) {
+        [self.EmptyTableView removeFromSuperview];
         
-        NSLog(@"Can't Save! %@ %@", error, [error localizedDescription]);
-    }
-    
-    [self.cerateviewTable reloadData];
-    [self.createview removeFromSuperview];
-    
+        NSManagedObjectContext *context = [self managedObjectContext];
+        
+        NSInteger idd=0;
+        if([[NSUserDefaults standardUserDefaults]integerForKey:@"sheetID"])
+        {
+            idd=[[NSUserDefaults standardUserDefaults]integerForKey:@"sheetID"];
+        }
+        
+        idd=idd+1;
+        
+        [[NSUserDefaults standardUserDefaults]setInteger:idd forKey:@"sheetID"];
+        
+        sheetID=idd;
+        
+        sheetTitle=cell2.descriptionTextfiled.text;
+        
+        NSManagedObject *newSheet = [NSEntityDescription insertNewObjectForEntityForName:ExpenseSheetTable inManagedObjectContext:context];
+        [newSheet setValue:[NSNumber numberWithInteger:idd] forKey:@"id"];
+        [newSheet setValue:cell2.descriptionTextfiled.text forKey:@"sheetDescription"];
+        
+        
+        [newSheet setValue:[self getWeekStartDateFromDate:self.createDatePicker.date] forKey:@"date"];
+        [newSheet setValue:[NSNumber numberWithBool:NO] forKey:@"status"];
+        
+        NSError *error = nil;
+        // Save the object to persistent store
+        if (![context save:&error]) {
+            
+            NSLog(@"Can't Save! %@ %@", error, [error localizedDescription]);
+        }
+        
+        [self.cerateviewTable reloadData];
+        [self.createview removeFromSuperview];
+        
         
         NSUserDefaults *mySharedDefaults = [[NSUserDefaults alloc] initWithSuiteName:AppGroupName];
         
@@ -481,15 +538,17 @@
         [mySharedDefaults setObject:sheetTitle forKey:@"Description"];
         
         NSDateFormatter *df=[[NSDateFormatter alloc]init];
-    
-         [mySharedDefaults setObject:[df stringFromDate:self.createDatePicker.date] forKey:@"Duration"];
         
-    
-      NSLog(@"description set is %@",[mySharedDefaults objectForKey:@"Description"]);
-    [self performSegueWithIdentifier:@"weeksegue" sender:nil];
+        [mySharedDefaults setObject:[df stringFromDate:self.createDatePicker.date] forKey:@"Duration"];
+        
+        
+        NSLog(@"description set is %@",[mySharedDefaults objectForKey:@"Description"]);
+        [self performSegueWithIdentifier:@"weeksegue" sender:nil];
+ 
     
     }
-}
+
+
 #pragma mark - DatePickerView Buttons
 - (IBAction)pickerDoneButtonAction:(id)sender
 {
@@ -501,10 +560,11 @@
          [self.pickerbackview removeFromSuperview];
          
          CreateViewCell1 *cell=(CreateViewCell1 *)[self.cerateviewTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+         cell.dateLabelCreateView.text=self.pickerviewLabel.text;
          
-         NSDateFormatter *df=[[NSDateFormatter alloc]init];
-         [df setDateFormat:@"dd-MM-yyyy"];
-         cell.dateLabelCreateView.text=[df stringFromDate:firstWeekday];
+        // NSDateFormatter *df=[[NSDateFormatter alloc]init];
+        // [df setDateFormat:@"dd-MM-yyyy"];
+      //   cell.dateLabelCreateView.text=self.
          
         // [self.cerateviewTable reloadData];
          
@@ -517,7 +577,6 @@
     
 
 }
-
 - (IBAction)pickerCancelButtonAction:(id)sender
 {
     [UIView animateWithDuration:0.5
@@ -592,39 +651,20 @@
     }
     else if (tableView==self.CurrentWeekTable)
     {
+        if(currentWeekDataSource.count>0)
+        {
         NSManagedObject *sheet = [currentWeekDataSource objectAtIndex:indexPath.row];
         sheetID=[[sheet valueForKey:@"id"] integerValue];
         sheetTitle=[sheet valueForKey:@"sheetDescription"];
         [self performSegueWithIdentifier:@"weeksegue" sender:nil];
+        }
     }
     else
     {
         if(indexPath.row==0)
       
         {
-            CreateViewCell2 *cell2=[self.cerateviewTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
-            [cell2.descriptionTextfiled resignFirstResponder];
-          //  NSCalendar *gregorian = [NSCalendar currentCalendar];
-            NSDate *currentDate = [NSDate date];
-            NSDateComponents *comps = [[NSDateComponents alloc] init];
-            [comps setDay:-2];
-           // NSDate *minDate = [gregorian dateByAddingComponents:comps toDate:currentDate  options:0];
-            //[comps setDay:-2];
-           // NSDate *maxDate = [gregorian dateByAddingComponents:comps toDate:currentDate  options:0];
-            
-
-           // self.createDatePicker.minimumDate = minDate;
-            self.createDatePicker.maximumDate = currentDate;
-            [self.pickerbackview setFrame:CGRectMake( self.view.frame.size.width, 0, self.view.frame.size.width, self.view.frame.size.height)];
-            [self.view addSubview:self.pickerbackview];
-            [self.view bringSubviewToFront:self.pickerbackview];//notice this is OFF screen!
-            [UIView beginAnimations:@"animateTableView" context:nil];
-            [UIView setAnimationDuration:0.5];
-            self.pickerbackview.frame=self.view.frame;
-            
-            [UIView commitAnimations];
-            [cell2.descriptionTextfiled resignFirstResponder];
-
+            [self presentDatePickerView];
         }
     }
   
@@ -665,7 +705,7 @@
     }
     
         UIView *selectedBackgorundView=[[UIView alloc]initWithFrame:cell.bounds];
-        selectedBackgorundView.backgroundColor=[UIColor colorWithRed:234.0/255.0 green:235.0/255.0 blue:240.0/255.0 alpha:1.0];
+        selectedBackgorundView.backgroundColor=[UIColor lightGrayColor];
         cell.selectedBackgroundView=selectedBackgorundView;
        return cell;
     }
@@ -680,6 +720,8 @@
             selectedBackgorundView.backgroundColor=[UIColor clearColor];
             cell.selectedBackgroundView=selectedBackgorundView;
             
+            if(currentWeekDataSource.count>0)
+            {
             NSManagedObject *sheet=[currentWeekDataSource objectAtIndex:indexPath.row];
             cell.descriptionLabel.text=[sheet valueForKey:@"sheetDescription"];
             
@@ -697,6 +739,7 @@
             [formatter setDateStyle:NSDateFormatterMediumStyle];
             
             cell.durationLabel.text=[NSString stringWithFormat:@"%@ - %@",[formatter stringFromDate:startDate],[formatter stringFromDate:endOfWeek]];
+            }
             
             return cell;
 
@@ -709,10 +752,6 @@
         CreateViewCell1 *cell;
         cell=[tableView dequeueReusableCellWithIdentifier:@"CreateViewCell1" forIndexPath:indexPath];
             
-           // NSCalendar *gregorian = [NSCalendar currentCalendar];
-           // NSDateComponents *components = [gregorian components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:[NSDate date]];
-          //  [components setDay:([components day]-([components weekday]-[[NSCalendar currentCalendar] firstWeekday]))];
-          //  firstWeekday = [gregorian dateFromComponents:components];
             if(firstWeekday)
             {
             NSDateFormatter *df=[[NSDateFormatter alloc]init];
@@ -734,7 +773,7 @@
              CreateViewCell2 *cell;
              cell=[tableView dequeueReusableCellWithIdentifier:@"CreateViewCell2" forIndexPath:indexPath];
             cell.descriptionTextfiled.delegate=self;
-            [self performSelector:@selector(appearKeyboard:) withObject:cell afterDelay:2.0];
+            [self performSelector:@selector(appearKeyboard:) withObject:cell afterDelay:0.5];
            
             
             UIView *selectedBackgorundView=[[UIView alloc]initWithFrame:cell.bounds];
@@ -826,7 +865,6 @@
        }
    }
 }
-
 #pragma mark -
 #pragma mark === Search Bar Delegate ===
 #pragma mark -
@@ -861,6 +899,11 @@
 #pragma mark -
 #pragma mark === UITextfield Delegate ===
 #pragma mark -
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
+}
 -(BOOL) textFieldShouldBeginEditing:(UITextField *)textField
 {
     //This'll Show The cancelButton with Animation
@@ -874,7 +917,7 @@
 - (BOOL) textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
         //Returning yes allows the entered chars to be processed
-    if(textField.text.length>1)
+    if(textField.text.length>0)
     {
         self.createButton.enabled=YES;
     }
@@ -894,9 +937,6 @@
 #pragma mark -
 #pragma mark === UIImagePickerController Delegate ===
 #pragma mark -
-
-//must conform to both UIImagePickerControllerDelegate and UINavigationControllerDelegate
-//but don’t have to implement any of the UINavigationControllerDelegate methods.
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     
@@ -1017,20 +1057,18 @@
     
     NSDate *weekDay =self.createDatePicker.date; //any date in the week in which to calculate the first or last day
     NSCalendar *gregorian = [NSCalendar currentCalendar];
-    NSDateComponents *components = [gregorian components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:weekDay];
-    [components setDay:([components day]-([components weekday]-[[NSCalendar currentCalendar] firstWeekday]))];
     
+    
+    NSDateComponents* components = [gregorian components:NSCalendarUnitYearForWeekOfYear |NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitWeekOfMonth|NSCalendarUnitWeekday fromDate:weekDay];
+    
+    [components setWeekday:1]; // 1: Sunday
     firstWeekday = [gregorian dateFromComponents:components];
-    //   NSDate *lastWeekday = [[gregorian dateFromComponents:components] dateByAddingTimeInterval:7 * 24 * 3600 - 1];
-    //   NSLog(@"first - %@ \nlast - %@", firstWeekday, lastWeekday);
-    
-   // NSString *pickeddate=[self getDayOfWeekShortString:firstWeekday];
+  
     
     NSDateFormatter *df = [[NSDateFormatter alloc] init];
     [df setDateFormat:@"E MM-dd-yyyy"];
     self.pickerviewLabel.text = [NSString stringWithFormat:@"%@",
                                  [df stringFromDate:firstWeekday]];
-    // [self.createDatePicker setHidden:YES];
 }
 
 #pragma mark -
@@ -1062,7 +1100,31 @@
 #pragma mark -
 #pragma mark === Helper methods ===
 #pragma mark -
-
+-(void)presentDatePickerView
+{
+    CreateViewCell2 *cell2=[self.cerateviewTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+    [cell2.descriptionTextfiled resignFirstResponder];
+    NSDate *currentDate = [NSDate date];
+    NSDateComponents *comps = [[NSDateComponents alloc] init];
+    [comps setDay:-2];
+    // NSDate *minDate = [gregorian dateByAddingComponents:comps toDate:currentDate  options:0];
+    //[comps setDay:-2];
+    // NSDate *maxDate = [gregorian dateByAddingComponents:comps toDate:currentDate  options:0];
+    
+    
+    // self.createDatePicker.minimumDate = minDate;
+    self.createDatePicker.maximumDate = currentDate;
+    [self.pickerbackview setFrame:CGRectMake( self.view.frame.size.width, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    [self.view addSubview:self.pickerbackview];
+    [self.view bringSubviewToFront:self.pickerbackview];//notice this is OFF screen!
+    [UIView beginAnimations:@"animateTableView" context:nil];
+    [UIView setAnimationDuration:0.5];
+    self.pickerbackview.frame=self.view.frame;
+    
+    [UIView commitAnimations];
+    [cell2.descriptionTextfiled resignFirstResponder];
+   
+}
 - (NSManagedObject *)sheetForIndexPath:(NSIndexPath *)indexPath {
 
     NSManagedObject *sheet = nil;
@@ -1115,6 +1177,42 @@
     NSDateComponents *components = [calender components:NSCalendarUnitWeekOfYear fromDate:date];
     return [components weekOfYear];
 }
+-(NSString *)getWeekStartDayStringFromDate:(NSDate *)date andFormate:(NSString *)dateFormate
+{
+   // NSDate *weekDay =self.createDatePicker.date; //any date in the week in which to calculate the first or last day
+    NSCalendar *gregorian = [NSCalendar currentCalendar];
+    
+    
+    NSDateComponents* components = [gregorian components:NSCalendarUnitYearForWeekOfYear |NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitWeekOfMonth|NSCalendarUnitWeekday fromDate:date];
+    
+    [components setWeekday:1]; // 1: Sunday
+   NSDate * firstDay = [gregorian dateFromComponents:components];
+    
+    
+    NSDateFormatter *df = [[NSDateFormatter alloc] init];
+    [df setDateFormat:dateFormate];
+    //self.pickerviewLabel.text = [NSString stringWithFormat:@"%@",
+                       //          [df stringFromDate:firstDay]];
+//
+    
+    return [NSString stringWithFormat:@"%@",
+            [df stringFromDate:firstDay]];
+}
+-(NSDate *)getWeekStartDateFromDate:(NSDate *)date
+{
+    // NSDate *weekDay =self.createDatePicker.date; //any date in the week in which to calculate the first or last day
+    NSCalendar *gregorian = [NSCalendar currentCalendar];
+    
+    
+    NSDateComponents* components = [gregorian components:NSCalendarUnitYearForWeekOfYear |NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitWeekOfMonth|NSCalendarUnitWeekday fromDate:date];
+    
+    [components setWeekday:1]; // 1: Sunday
+    NSDate * firstDay = [gregorian dateFromComponents:components];
+    
+    
+    return firstDay;
+}
+
 -(BOOL)isDateBelongsToCurrentWeek:(NSDate *)date
 {
     if ([self numberOfWeek:[NSDate date]] == [self numberOfWeek:date])
@@ -1187,7 +1285,13 @@
         
     }
 }
-
+-(void)sendDataToPreviousController:(NSInteger)ItemIdFromCalendar
+{
+    sheetID=ItemIdFromCalendar;
+    shouldPresentDetailVC=true;
+    
+    [self performSegueWithIdentifier:@"weeksegue" sender:nil];
+}
 #pragma mark -
 #pragma mark === Navigation ===
 #pragma mark -
@@ -1198,7 +1302,16 @@
         ExpenseSheetDetailViewController *weekExpenseVC=(ExpenseSheetDetailViewController *)segue.destinationViewController;
         weekExpenseVC.sheetId=sheetID;
         weekExpenseVC.titleText=sheetTitle;
+        weekExpenseVC.shouldPresentDetailVC=shouldPresentDetailVC;
+        weekExpenseVC.itemId=itemID;
+
     }
+    else if ([segue.identifier isEqualToString:@"CalendarSegue"])
+    {
+        CalendarViewController *calendarVC=(CalendarViewController *)segue.destinationViewController;
+        calendarVC.delegate=self;
+    }
+
 }
 
 @end

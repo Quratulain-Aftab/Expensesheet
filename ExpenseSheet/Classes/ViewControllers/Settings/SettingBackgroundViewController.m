@@ -38,12 +38,12 @@
     return 10;
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    static NSString *identifier = @"BackgroundCell";
+    static NSString *identifier = @"InfoCollectionCell";
     
-    BackgroundCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
+    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
     
   //  UIImageView *recipeImageView = (UIImageView *)[cell viewWithTag:100];
-    cell.backgroundColor=[UIColor grayColor];
+  //  cell.backgroundColor=[UIColor grayColor];
    // recipeImageView.image = [UIImage imageNamed:[recipeImages objectAtIndex:indexPath.row]];
     
     return cell;

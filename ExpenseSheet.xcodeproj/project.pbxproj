@@ -33,17 +33,30 @@
 		5AECD2AF1E1B8CA4000CA3F8 /* DetailPreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AECD2AE1E1B8CA4000CA3F8 /* DetailPreviewViewController.m */; };
 		757E2A5B1DDD8231005D43FF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 757E2A5A1DDD8231005D43FF /* main.m */; };
 		75BED0DD1DE6BF8E00D71E97 /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75BED0DC1DE6BF8E00D71E97 /* LocalAuthentication.framework */; };
+		A4004C571E260F5200FFB380 /* WeekStartDayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4004C561E260F5200FFB380 /* WeekStartDayViewController.m */; };
+		A4004C591E26142D00FFB380 /* Settings.plist in Resources */ = {isa = PBXBuildFile; fileRef = A4004C581E26142D00FFB380 /* Settings.plist */; };
+		A4004C5C1E262F6900FFB380 /* RescheduleNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = A4004C5B1E262F6900FFB380 /* RescheduleNotifications.m */; };
+		A418938B1E264D2F0080FFD5 /* logo1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A418938A1E264D2F0080FFD5 /* logo1.jpg */; };
+		A418938C1E264D2F0080FFD5 /* logo1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A418938A1E264D2F0080FFD5 /* logo1.jpg */; };
 		A4979EC51E1CF426005B4B2F /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4979EC41E1CF426005B4B2F /* NotificationCenter.framework */; };
 		A4979EC91E1CF426005B4B2F /* TodayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4979EC81E1CF426005B4B2F /* TodayViewController.m */; };
 		A4979ECC1E1CF426005B4B2F /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A4979ECA1E1CF426005B4B2F /* MainInterface.storyboard */; };
 		A4979ED01E1CF426005B4B2F /* ExpenseSheetWidget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = A4979EC31E1CF426005B4B2F /* ExpenseSheetWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		A4979ED51E1D01D9005B4B2F /* ExpenseSheet.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5ACEFFED1E14160800C3FCD4 /* ExpenseSheet.xcdatamodeld */; };
+		A4B5FE111E27524700457C0A /* CalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4B5FE101E27524700457C0A /* CalendarViewController.m */; };
+		A4B5FE141E275EE800457C0A /* Model.m in Sources */ = {isa = PBXBuildFile; fileRef = A4B5FE131E275EE800457C0A /* Model.m */; };
 		A4D63DAF1E2503030053B741 /* SettingBackgroundViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4D63DAE1E2503030053B741 /* SettingBackgroundViewController.m */; };
 		A4D63DB21E2507AE0053B741 /* BackgroundCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A4D63DB11E2507AE0053B741 /* BackgroundCollectionViewCell.m */; };
 		A4D63DB71E25103F0053B741 /* UIButton+button.m in Sources */ = {isa = PBXBuildFile; fileRef = A4D63DB61E25103F0053B741 /* UIButton+button.m */; };
 		A4E997321E24AB4900D1161B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A4E997311E24AB4900D1161B /* AppDelegate.m */; };
 		A4E997361E24ABE700D1161B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A4E997341E24ABE700D1161B /* Assets.xcassets */; };
 		A4E997371E24ABE700D1161B /* receipt.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A4E997351E24ABE700D1161B /* receipt.jpg */; };
+		A4EFFEC71E2DE7B000B9C328 /* CombineViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A4EFFEC61E2DE7B000B9C328 /* CombineViewCell.m */; };
+		A4F094601E2643A2005E94F5 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A4F0945F1E2643A2005E94F5 /* Launch Screen.storyboard */; };
+		A4F319FC1E2F30850036E9C4 /* Communication.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F319FB1E2F30850036E9C4 /* Communication.m */; };
+		A4F3DA7D1E2CCD8700477AAA /* CombineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F3DA7C1E2CCD8700477AAA /* CombineViewController.m */; };
+		A4F58BE41E28E95100C409A2 /* DateCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F58BE31E28E95100C409A2 /* DateCollectionViewCell.m */; };
+		A4F58BE71E28E96300C409A2 /* ReceiptCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F58BE61E28E96300C409A2 /* ReceiptCollectionViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -120,6 +133,12 @@
 		757E2A5A1DDD8231005D43FF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		757E2A6D1DDD8231005D43FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		75BED0DC1DE6BF8E00D71E97 /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
+		A4004C551E260F5200FFB380 /* WeekStartDayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeekStartDayViewController.h; sourceTree = "<group>"; };
+		A4004C561E260F5200FFB380 /* WeekStartDayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeekStartDayViewController.m; sourceTree = "<group>"; };
+		A4004C581E26142D00FFB380 /* Settings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Settings.plist; path = ../Settings.plist; sourceTree = "<group>"; };
+		A4004C5A1E262F6900FFB380 /* RescheduleNotifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RescheduleNotifications.h; sourceTree = "<group>"; };
+		A4004C5B1E262F6900FFB380 /* RescheduleNotifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RescheduleNotifications.m; sourceTree = "<group>"; };
+		A418938A1E264D2F0080FFD5 /* logo1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = logo1.jpg; sourceTree = "<group>"; };
 		A4979EC31E1CF426005B4B2F /* ExpenseSheetWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ExpenseSheetWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4979EC41E1CF426005B4B2F /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		A4979EC71E1CF426005B4B2F /* TodayViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TodayViewController.h; sourceTree = "<group>"; };
@@ -128,6 +147,10 @@
 		A4979ECD1E1CF426005B4B2F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A4979ED61E1D043D005B4B2F /* ExpenseSheet.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ExpenseSheet.entitlements; sourceTree = "<group>"; };
 		A4979ED71E1D07E1005B4B2F /* ExpenseSheetWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ExpenseSheetWidget.entitlements; sourceTree = "<group>"; };
+		A4B5FE0F1E27524700457C0A /* CalendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarViewController.h; sourceTree = "<group>"; };
+		A4B5FE101E27524700457C0A /* CalendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarViewController.m; sourceTree = "<group>"; };
+		A4B5FE121E275EE800457C0A /* Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Model.h; sourceTree = "<group>"; };
+		A4B5FE131E275EE800457C0A /* Model.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Model.m; sourceTree = "<group>"; };
 		A4D63DAD1E2503030053B741 /* SettingBackgroundViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingBackgroundViewController.h; sourceTree = "<group>"; };
 		A4D63DAE1E2503030053B741 /* SettingBackgroundViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingBackgroundViewController.m; sourceTree = "<group>"; };
 		A4D63DB01E2507AE0053B741 /* BackgroundCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackgroundCollectionViewCell.h; sourceTree = "<group>"; };
@@ -138,6 +161,17 @@
 		A4E997311E24AB4900D1161B /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		A4E997341E24ABE700D1161B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A4E997351E24ABE700D1161B /* receipt.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = receipt.jpg; sourceTree = "<group>"; };
+		A4EFFEC51E2DE7B000B9C328 /* CombineViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CombineViewCell.h; sourceTree = "<group>"; };
+		A4EFFEC61E2DE7B000B9C328 /* CombineViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CombineViewCell.m; sourceTree = "<group>"; };
+		A4F0945F1E2643A2005E94F5 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		A4F319FA1E2F30850036E9C4 /* Communication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Communication.h; sourceTree = "<group>"; };
+		A4F319FB1E2F30850036E9C4 /* Communication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Communication.m; sourceTree = "<group>"; };
+		A4F3DA7B1E2CCD8700477AAA /* CombineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CombineViewController.h; sourceTree = "<group>"; };
+		A4F3DA7C1E2CCD8700477AAA /* CombineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CombineViewController.m; sourceTree = "<group>"; };
+		A4F58BE21E28E95100C409A2 /* DateCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DateCollectionViewCell.h; sourceTree = "<group>"; };
+		A4F58BE31E28E95100C409A2 /* DateCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DateCollectionViewCell.m; sourceTree = "<group>"; };
+		A4F58BE51E28E96300C409A2 /* ReceiptCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReceiptCollectionViewCell.h; sourceTree = "<group>"; };
+		A4F58BE61E28E96300C409A2 /* ReceiptCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReceiptCollectionViewCell.m; sourceTree = "<group>"; };
 		B95C74D3BF654DAAD2114E76 /* Pods-ExpenseSheet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ExpenseSheet.release.xcconfig"; path = "Pods/Target Support Files/Pods-ExpenseSheet/Pods-ExpenseSheet.release.xcconfig"; sourceTree = "<group>"; };
 		E4092CAF66FA489E5CBB3D43 /* libPods-ExpenseSheet.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ExpenseSheet.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -196,6 +230,12 @@
 				5AC03DF31E164133008AF52A /* CurrentWeekCell.m */,
 				A4D63DB01E2507AE0053B741 /* BackgroundCollectionViewCell.h */,
 				A4D63DB11E2507AE0053B741 /* BackgroundCollectionViewCell.m */,
+				A4F58BE21E28E95100C409A2 /* DateCollectionViewCell.h */,
+				A4F58BE31E28E95100C409A2 /* DateCollectionViewCell.m */,
+				A4F58BE51E28E96300C409A2 /* ReceiptCollectionViewCell.h */,
+				A4F58BE61E28E96300C409A2 /* ReceiptCollectionViewCell.m */,
+				A4EFFEC51E2DE7B000B9C328 /* CombineViewCell.h */,
+				A4EFFEC61E2DE7B000B9C328 /* CombineViewCell.m */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -231,6 +271,7 @@
 		5A860AF01E140E8A00B44D49 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				A4B5FE0E1E27523900457C0A /* Calendar */,
 				5AECD2A51E1B8B1A000CA3F8 /* About us */,
 				5AECD2A61E1B8B1A000CA3F8 /* Settings */,
 				5ACEFFF21E142BB700C3FCD4 /* ExpenseDetail */,
@@ -334,6 +375,8 @@
 		5ACEFFF21E142BB700C3FCD4 /* ExpenseDetail */ = {
 			isa = PBXGroup;
 			children = (
+				A4F3DA7B1E2CCD8700477AAA /* CombineViewController.h */,
+				A4F3DA7C1E2CCD8700477AAA /* CombineViewController.m */,
 				5ACEFFF31E142BB700C3FCD4 /* DetailViewController.h */,
 				5ACEFFF41E142BB700C3FCD4 /* DetailViewController.m */,
 			);
@@ -353,10 +396,14 @@
 		5AECD2A61E1B8B1A000CA3F8 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				A4004C5A1E262F6900FFB380 /* RescheduleNotifications.h */,
+				A4004C5B1E262F6900FFB380 /* RescheduleNotifications.m */,
 				5AECD2AA1E1B8B87000CA3F8 /* SettingsViewController.h */,
 				5AECD2AB1E1B8B87000CA3F8 /* SettingsViewController.m */,
 				A4D63DAD1E2503030053B741 /* SettingBackgroundViewController.h */,
 				A4D63DAE1E2503030053B741 /* SettingBackgroundViewController.m */,
+				A4004C551E260F5200FFB380 /* WeekStartDayViewController.h */,
+				A4004C561E260F5200FFB380 /* WeekStartDayViewController.m */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -398,6 +445,7 @@
 				757E2A6D1DDD8231005D43FF /* Info.plist */,
 				5A860AD91E140DB500B44D49 /* Main.storyboard */,
 				757E2A5A1DDD8231005D43FF /* main.m */,
+				A4F0945F1E2643A2005E94F5 /* Launch Screen.storyboard */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -424,9 +472,20 @@
 			path = ExpenseSheetWidget;
 			sourceTree = "<group>";
 		};
+		A4B5FE0E1E27523900457C0A /* Calendar */ = {
+			isa = PBXGroup;
+			children = (
+				A4B5FE0F1E27524700457C0A /* CalendarViewController.h */,
+				A4B5FE101E27524700457C0A /* CalendarViewController.m */,
+			);
+			path = Calendar;
+			sourceTree = "<group>";
+		};
 		A4D63DB31E250FE80053B741 /* Communication */ = {
 			isa = PBXGroup;
 			children = (
+				A4F319FA1E2F30850036E9C4 /* Communication.h */,
+				A4F319FB1E2F30850036E9C4 /* Communication.m */,
 			);
 			path = Communication;
 			sourceTree = "<group>";
@@ -434,6 +493,8 @@
 		A4D63DB41E250FE80053B741 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				A4B5FE121E275EE800457C0A /* Model.h */,
+				A4B5FE131E275EE800457C0A /* Model.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -450,6 +511,8 @@
 		A4E997331E24AB8100D1161B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A418938A1E264D2F0080FFD5 /* logo1.jpg */,
+				A4004C581E26142D00FFB380 /* Settings.plist */,
 				A4E997341E24ABE700D1161B /* Assets.xcassets */,
 				A4E997351E24ABE700D1161B /* receipt.jpg */,
 			);
@@ -522,7 +585,7 @@
 						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
-								enabled = 1;
+								enabled = 0;
 							};
 						};
 					};
@@ -562,8 +625,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A4004C591E26142D00FFB380 /* Settings.plist in Resources */,
 				A4E997361E24ABE700D1161B /* Assets.xcassets in Resources */,
 				A4E997371E24ABE700D1161B /* receipt.jpg in Resources */,
+				A4F094601E2643A2005E94F5 /* Launch Screen.storyboard in Resources */,
+				A418938B1E264D2F0080FFD5 /* logo1.jpg in Resources */,
 				5A860ADA1E140DB500B44D49 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -572,6 +638,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A418938C1E264D2F0080FFD5 /* logo1.jpg in Resources */,
 				A4979ECC1E1CF426005B4B2F /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -639,19 +706,28 @@
 				5ACEFFEF1E14160800C3FCD4 /* ExpenseSheet.xcdatamodeld in Sources */,
 				5ACEFFEC1E14156400C3FCD4 /* MBProgressHUD.m in Sources */,
 				A4D63DAF1E2503030053B741 /* SettingBackgroundViewController.m in Sources */,
+				A4F319FC1E2F30850036E9C4 /* Communication.m in Sources */,
 				A4D63DB21E2507AE0053B741 /* BackgroundCollectionViewCell.m in Sources */,
+				A4F3DA7D1E2CCD8700477AAA /* CombineViewController.m in Sources */,
 				5AECD2AF1E1B8CA4000CA3F8 /* DetailPreviewViewController.m in Sources */,
 				5A860B191E140E8A00B44D49 /* ExpenseSheetDetailViewController.m in Sources */,
 				A4D63DB71E25103F0053B741 /* UIButton+button.m in Sources */,
 				5ACEFFF51E142BB700C3FCD4 /* DetailViewController.m in Sources */,
 				5AECD2A41E1B6D04000CA3F8 /* SheetPreviewViewController.m in Sources */,
+				A4004C571E260F5200FFB380 /* WeekStartDayViewController.m in Sources */,
+				A4F58BE71E28E96300C409A2 /* ReceiptCollectionViewCell.m in Sources */,
 				5A860B151E140E8A00B44D49 /* HomeViewController.m in Sources */,
+				A4B5FE141E275EE800457C0A /* Model.m in Sources */,
 				5AECD2A91E1B8B76000CA3F8 /* AboutUsViewController.m in Sources */,
 				5ACEFFF81E142C8400C3FCD4 /* CreatePasscodeViewController.m in Sources */,
 				5AC03DF81E1679D8008AF52A /* Utilities.m in Sources */,
 				5A860B171E140E8A00B44D49 /* LoginViewController.m in Sources */,
+				A4B5FE111E27524700457C0A /* CalendarViewController.m in Sources */,
 				5A3C37D41E142DDF0064AB84 /* EnterPasscodeViewController.m in Sources */,
 				5A860B0F1E140E8A00B44D49 /* DayCell1.m in Sources */,
+				A4F58BE41E28E95100C409A2 /* DateCollectionViewCell.m in Sources */,
+				A4EFFEC71E2DE7B000B9C328 /* CombineViewCell.m in Sources */,
+				A4004C5C1E262F6900FFB380 /* RescheduleNotifications.m in Sources */,
 				A4E997321E24AB4900D1161B /* AppDelegate.m in Sources */,
 				5AC03DF41E164133008AF52A /* CurrentWeekCell.m in Sources */,
 				5A860B0E1E140E8A00B44D49 /* DayCell.m in Sources */,
@@ -733,7 +809,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -776,7 +852,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -789,8 +865,6 @@
 			baseConfigurationReference = 121020EBD1577776728EA275 /* Pods-ExpenseSheet.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_ENTITLEMENTS = ExpenseSheet/ExpenseSheet.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Nauman Aslam (82X9S4ZM8C)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Nauman Aslam (82X9S4ZM8C)";
 				DEVELOPMENT_TEAM = VTQNX4SXLT;
@@ -809,8 +883,6 @@
 			baseConfigurationReference = B95C74D3BF654DAAD2114E76 /* Pods-ExpenseSheet.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_ENTITLEMENTS = ExpenseSheet/ExpenseSheet.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Nauman Aslam (82X9S4ZM8C)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				DEVELOPMENT_TEAM = VTQNX4SXLT;
@@ -833,7 +905,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = VTQNX4SXLT;
 				INFOPLIST_FILE = ExpenseSheetWidget/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ethnico.ikorkortPaid.ExpenseSheetWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -850,7 +922,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = VTQNX4SXLT;
 				INFOPLIST_FILE = ExpenseSheetWidget/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ethnico.ikorkortPaid.ExpenseSheetWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";

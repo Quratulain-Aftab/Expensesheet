@@ -42,8 +42,9 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *myExpenseSheetsButtonTop;
 @property (weak, nonatomic) IBOutlet UILabel *editSheetsTitleLabel;
 @property (weak, nonatomic) IBOutlet UIButton *closeListButton;
-
 @property UIImagePickerController *imagePicker;
+@property (weak, nonatomic) IBOutlet UIButton *createViewCancelButton;
+@property (weak, nonatomic) IBOutlet UIButton *calendarButton;
 
 
 @end

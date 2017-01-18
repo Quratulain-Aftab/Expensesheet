@@ -14,4 +14,7 @@
 + (Utilities *)shareManager;
 - (UIColor *)colorWithHexString:(NSString*)hex;
 -(UIColor *)backgroundColor;
+- (void)moveToDocumentDirectory:(NSString *)fileName;
+- (BOOL)getUpdatedSettings:(NSString *)key;
+-(NSString*)getUpdatedSettingsForString:(NSString *)key;
 @end
